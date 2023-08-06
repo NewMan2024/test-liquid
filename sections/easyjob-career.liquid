@@ -1,0 +1,424 @@
+<link href="https://fonts.googleapis.com/css?family=Hind:400,500&display=swap" rel="stylesheet">
+            <div class="career-header">
+              <h1>CURRENT JOB OPENINGS</h1>
+            </div>
+            <ul class="employee-details">
+              <li>POSITION</li>
+              <li>LOCATION</li>
+              <li>APPLY BY</li>
+              <li>APPLY HERE</li>
+            </ul>
+            <div class="employee-details">
+              <div class="widget block block-static-block" id="jobs">
+                <ul class="employee-jobs">
+                  <!--  <li class="button-container"><a class="apply-button-post" href="{{block.settings.link}}">Apply</a></li> -->
+                </ul>
+              </div>
+            </div>
+            <!--<div class="apply-container">
+              <div class="career-header">
+                <h2>FIND YOUR CAREER</h2>
+              </div>
+              <div class="button-container"><a class="apply-button" href="/pages/easyjob-career-form">APPLY</a></div>
+            </div>-->
+    <script type="text/javascript">
+      domain = window.location.hostname;
+      let API_URL="https://easyjob-posting.epinovus.net";
+    function getHeaders(){
+            let temp={}
+            $.ajax({
+              url: API_URL+"/get_token",
+              type: "POST",
+              data:{"domain":domain},
+              dataType: "json",
+              async: false,
+              success: function(result) {
+                temp={
+                    "Content-Type": "application/json",
+                    "Authorization":`Token ${result.token}`
+                  }
+              }})
+          		return temp;
+    		}
+      function myCall(el,index){
+        $.ajax({
+          url: API_URL+"/jobDetail?id="+index,
+          type: "GET",
+          dataType: "json",
+          headers: getHeaders(),
+          beforeSend: function() {
+            $(".loading-modal").show();
+            $(el).find(".modal").show();
+          },
+          success: function(result) {
+            $(".career-header").hide()
+            $(".employee-details").hide()
+            $(".employee-details").hide()
+            $(".apply-container").hide()
+             $("#job-details-model").show()
+            $("#title").html("<h2><center>"+result.title+"</center></h2>");
+            $("#skills").html("<h4>Skills</h4><span>"+result.skills+"</span>");
+            $("#responsiblities").html("<h4>Responsibilities</h4><span>"+result.responsibilities+"</span>");
+            $("#knowledge_required").html("<h4>Knowledge Required</h4><span>"+result.knowledge_required+"</span>");
+            $("#additional_requirements").html("<h4>Additional Requirements</h4><span>"+result.additional_requirements+"</span>");
+            $("#department").html("<h4>Department</h4><span>"+result.department+"</span>");
+            $("#working_hours").html("<h4>Working Hours</h4><span>"+result.working_hours+"</span>");
+            $("#qualification").html("<h4>Qualification</h4><span>"+result.qualification+"</span>");
+            $("#no_of_position").html("<h4>No Of Positions</h4><span>"+result.no_of_positions+"</span>");
+            $("#age_limit").html("<h4>Age Limit</h4><span>"+result.age_limit+"</span>");
+            $("#gender").html("<h4>Gender</h4><span>"+result.gender+"</span>");
+            $("#experience").html("<h4>Experience</h4><span>"+result.experience+"</span>");      
+            let link= "/pages/easyjob-career-form?id="+ result.id;
+            let CustomBTN="btn btn-primary"
+          $("#apply_btn").html("<a class="+CustomBTN+" href="+link+">Apply Now</a>")
+          }
+        })
+      }
+      $.ajax({
+        url: API_URL+"/job?status=True&shop="+domain,
+        type: "GET",
+        headers: getHeaders(),
+        dataType: "json",
+        success: function(result) {
+          for (index = 0; index < result.length; index++) {
+            var title = result[index].title;
+            if (title == null){
+              title=""
+            }
+            var city = result[index].city;
+            if (city == null){
+              city=""
+            }
+            var expiry = result[index].expiry_date;
+            if (title == null){
+              expiry=""
+            }
+            var ul = document.createElement("ul");
+            ul.setAttribute("class","employee-jobs");
+            document.getElementById("jobs").appendChild(ul);
+            var li = document.createElement("li");
+            ul.appendChild(li);
+            li.innerHTML=li.innerHTML + title;
+            var li = document.createElement("li");
+            ul.appendChild(li);
+            li.innerHTML=li.innerHTML + city;
+            var li = document.createElement("li");
+            ul.appendChild(li);
+            li.innerHTML=li.innerHTML + expiry;
+            var li = document.createElement("li");
+            li.setAttribute("class","button-container");
+            ul.appendChild(li);
+            var a = document.createElement("a")
+            a.setAttribute("class","apply-button-post")
+            a.setAttribute("href","/pages/easyjob-career-form?id="+ result[index].id)
+            a.innerHTML = "Apply Now";
+            var button = document.createElement("button");
+            button.setAttribute("type","button");
+            button.setAttribute("class","btn btn-primary");
+            button.setAttribute("data-toggle","modal");
+            button.setAttribute("data-index",result[index].id);
+            button.setAttribute("onclick","myCall(this,"+result[index].id+")");
+            button.setAttribute("data-target","#exampleModal"+result[index].id);
+            button.innerHTML = "Details";
+            li.appendChild(button)
+            var div1 = document.createElement("div");
+            div1.setAttribute("class","modal fade");
+            div1.setAttribute("id","exampleModal"+result[index].id);
+            div1.setAttribute("tabindex","-1");
+            div1.setAttribute("role","dialog");
+            div1.setAttribute("aria-labelledby","exampleModalLabel"+result[index].id);
+            div1.setAttribute("aria-hidden","true");
+            li.appendChild(div1);
+            var div2 = document.createElement("div");
+            div2.setAttribute("class","modal-dialog");
+            div2.setAttribute("role","document");
+            div1.appendChild(div2);
+            var div3 = document.createElement("div");
+            div3.setAttribute("class","modal-content");
+            div2.appendChild(div3);
+            var div4 = document.createElement("div");
+            div4.setAttribute("class","modal-header");
+            div3.appendChild(div4);
+            var h4 = document.createElement("h4");
+            h4.setAttribute("class","modal-title post");
+            h4.setAttribute("id","exampleModalLabel"+result[index].id);
+            div4.appendChild(h4);
+            var crossButton = document.createElement("button");
+            crossButton.setAttribute("class","close");
+            crossButton.setAttribute("type","button");
+            crossButton.setAttribute("data-dismiss","modal");
+            crossButton.setAttribute("aria-label","close");
+            div4.appendChild(crossButton);
+            var span = document.createElement("span");
+            span.setAttribute("aria-hidden","true");
+            span.innerHTML = "&times;";
+            crossButton.appendChild(span);        
+            var div5 = document.createElement("div");
+            div5.setAttribute("class","modal-body");
+            div3.appendChild(div5);        
+            var div6 = document.createElement("div");
+            div6.setAttribute("class","modal-footer");
+            div3.appendChild(div6);
+            var ulData = document.createElement("ul");
+            ulData.setAttribute("class","dataList");
+            div5.appendChild(ulData);
+            for(var i=0;i<11;i++){
+              var li1 = document.createElement("li");
+              li1.setAttribute("class","list"+i);
+              ulData.appendChild(li1);
+              var strong1 = document.createElement("strong");
+              strong1.setAttribute("class","title"+i);
+              li1.appendChild(strong1);
+              var span1 = document.createElement("span");
+              li1.appendChild(span1)
+            }
+            $(".title0").html("Skills");
+            $(".title1").html("Responsibilities");
+            $(".title2").html("Knowledge Required");
+            $(".title3").html("Additional Requirement");
+            $(".title4").html("Department");
+            $(".title5").html("Working Hours");
+            $(".title6").html("Qualification");
+            $(".title7").html("No of Positions");
+            $(".title8").html("Age of Limit");
+            $(".title9").html("Gender");
+            $(".title10").html("Experience");
+            div6.appendChild(a);
+            //         li.appendChild(a)
+          }
+        }
+      });
+    </script>
+    <style>
+      ul.employee-jobs{
+        padding:0px;
+        text-align: center;
+      }
+      ul.employee-jobs li{
+        display: flex;
+        font-weight: bold;
+        padding:20px;
+        color:#000;
+        border:1px solid #000;
+        list-style-type: none;
+        max-width:225px;
+        font-size:14px;
+        text-align: center;
+        text-transform:uppercase;
+        flex: 1;
+        justify-content: center;
+        margin-right: 2px;
+        height:65px;
+      }
+      .apply-container{
+        box-sizing: border-box;
+        max-width: 700px;
+        margin:40px auto 0;
+        border:1px solid #ddd;
+        padding: 20px 20px 55px 20px;
+      }
+      .career-header h2{
+        font-weight: 600;
+        color: #666666;
+        text-align: center;
+        padding: 20px 0;
+        font-size: 32px;
+        margin:0px;
+      }
+      .button-container{
+        display: block;
+        text-align: center;
+        width: 100%;
+        padding-top:20px;         
+      }
+      .apply-button{
+        padding:15px 50px;
+        background-color:#FFD500;
+        border:1px solid #FFD500;
+        border-radius: 3px;
+        color:#000;
+        font-size: 18px;
+        margin-bottom: 40px;
+        text-decoration: none;
+      }
+      .button-container{
+        display: block;
+        text-align: center;
+        width: 100%;
+        padding-top:20px; 
+      }
+      .apply-button-post {
+        padding:10px 30px;
+        background-color:#FFD500;
+        border:1px solid #FFD500;
+        border-radius: 0;
+        color:#000;
+        font-size: 14px;
+        margin-bottom: 40px;
+        text-decoration: none;
+        text-transform: capitalize;
+      }
+      .apply-button-post:hover {
+        text-decoration: none;
+      }
+      ul.employee-details li {
+        display: inline-block;
+        font-weight: bold;
+        padding: 20px;
+        color: #fff;
+        background-color: #000;
+        list-style-type: none;
+        width: 100%;
+        max-width: 225px;
+        font-size: 14px;
+        text-align: center;
+      }
+      ul.employee-details {
+        padding: 0px;
+        text-align: center;
+      }
+      .career-header h1 {
+        font-weight: 600;
+        color: #666666;
+        text-align: center;
+        font-size: 42px;
+        padding: 20px 0;
+        margin-bottom: 28px;
+      }
+      #career .page-header h2{display:none;}
+      #career {font-family: "Hind", sans-serif;}
+      ul.employee-jobs li.button-container {
+        padding: 12px 20px;
+      }
+      .button-container .modal-content {
+        border-radius: 0;
+      }
+      .button-container .modal-header .close {
+        float: none;
+        right: 15px;
+        position: absolute;
+        top: 10px;
+        width: 25px;
+        height: 25px;
+      }
+      .button-container button.close span {
+        font-size: 25px;
+      }
+      .button-container .modal-body {
+        min-height: 350px;
+        padding-top: 0;
+      }
+      ul.dataList { padding: 0; }
+      .button-container .modal-header {
+        padding-left: 47px;
+      }
+      .button-container .modal-footer {
+        border-top: unset;
+      }
+      ul.dataList li {
+        display: block;
+        width: 100%;
+        border: unset;
+        max-width: 100%;
+      }
+      ul.employee-jobs {
+        display: flex;
+        justify-content: center;
+      }
+      ul.dataList:after {
+        display: table;
+        clear: both;
+        content:";
+      }
+      ul.dataList li {
+        display: block;
+        max-width: unset;
+        width: 50%;
+        float: left;
+        margin-right: 0;
+        text-align: left;
+        padding-left: 0;
+      }
+      h4.modal-title {
+        padding-bottom: 15px;
+        font-weight: 600;
+        font-size: 20px;
+      }
+      ul.dataList strong,ul.dataList span {
+        display: block;
+      }
+      ul.dataList span {
+        color: #000;
+        font-weight: 500;
+        font-size: 15px;
+        text-transform: capitalize;
+        padding: 0;
+      }
+    </style>
+    <div id="job-details-model">
+      <div class="cancel-btn" onclick="hidejobdetails()"><h1>X</h1></div>
+      <div id="title"></div>
+      <div class="grid">
+      <div id="skills"></div>
+      <div id="responsiblities"></div>
+      <div id="knowledge_required"></div>
+      <div id="additional_requirements"></div>
+      <div id="department"></div>
+      <div id="working_hours"></div>
+      <div id="qualification"></div>
+      <div id="no_of_position"></div>
+      <div id="age_limit"></div>
+      <div id="gender"></div>
+      <div id="experience"></div><div>
+      <div id="apply_btn"></div>
+    </div>
+    <style>
+      #job-details-model{
+        display:none;
+        background-color:"red";
+        width:60%;
+        margin:0px 20%;
+        color:black;
+        padding:3%;
+        background-color:#eee;
+        border-radius:5px;
+      }
+      #job-details-model .grid{
+      display:grid;
+        grid-template-columns:auto auto;
+        justify-content:space-around;
+        gap:30px;
+      }
+        #job-details-model .grid div h4{
+          padding:0px;
+          margin:0px;
+          display:inline-block;
+          width:100%;
+        }
+      @media (max-width:900px){
+      #job-details-model{
+        width:80%;
+      }
+       #job-details-model .grid{
+      display:grid;
+        grid-template-columns:auto;
+        justify-content:center;
+        gap:30px;
+      }
+        #job-details-model .grid div h4{
+          padding:0px;
+          margin:0px;
+          display:inline-block;
+          width:100%;
+        }
+    }
+      </style>
+        <script>
+          function hidejobdetails(){
+            $("#job-details-model").hide()
+            $(".career-header").show()
+            $(".employee-details").show()
+            $(".employee-details").show()
+            $("apply-container").show()
+          }
+          </script>

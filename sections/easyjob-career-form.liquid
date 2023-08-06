@@ -1,0 +1,1457 @@
+<script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/jquery.inputmask.bundle.js'></script>
+<style>
+  .form { display: flex; width: 100%; flex-wrap: wrap; margin:10px 0px; }
+  .cstm { width: 33.33%; padding: 0 10px; }
+  .row.change { margin: 0; }
+  .period #period { height: unset; }
+  .institution { position: relative; }
+  .institution .fa-close:before { right: 5px; top: 40px; }
+  .date{width:400px;}
+  .form-group{width:100%;}
+  select{ width:100%; }
+  input{ width:100%;}
+  label{margin:5px 0px;}
+  @media (max-width: 768px){
+    .cstm { width: 100%; }
+    .date{ width:100%; }
+    label{margin:5px 0px;}
+    select{margin:0;}
+    }
+</style>
+{% include 'easyjob-breadcrumb' %}
+<header class='page-header'>
+  <h2 class='career_head' align='center'>APPLY ONLINE</h2>
+</header>
+{% comment %}
+Regular page content goes here.
+{% endcomment %}
+<form id='ajax-form'>
+  {% comment %}
+  Successful message
+  {% endcomment %}
+  {% if form.posted_successfully? %}
+  <p class='note form-success' {% if settings.enable_multilang %}data-translate='contact.form.post_success'{% endif %}>
+    {{ 'contact.form.post_success' | t }}
+  </p>
+  {% endif %}
+  {{ form.errors | default_errors }}
+  <div class='row' style='width:80%; margin:auto auto;'>    
+    <div class='col-xs-12 col-md-12 col-sm-12'>
+      <div class='find-job-heading'>
+        <h2>FIND YOUR CAREER</h2>
+      </div>
+      <div class='personal-form-info'>
+        <h2>PERSONAL INFO</h2>
+      </div>
+      <div id='contactFormWrapper'>
+        <div class='row'>
+          <div class='col-sm-12'>
+            <div class='form-group'>
+              <label>Job Title<em>*</em></label>
+              <input id='job_title' class='form-control job-title-input' onkeydown='return alphaOnly(event);' type='text' pattern='[A-Za-z]*' readonly/>
+              <input id='job_id' class='form-control job-id-input' name='id' type='hidden'/>
+            </div>
+          </div>
+        </div>
+        <div class='form'>
+<!--         <div class='row'> -->
+<!--           <div class='col-sm-4 hide'> -->
+                    <div class='cstm hide'>
+            <div id='title' class='form-group hide'>
+              <label>Title</label>
+              <select class='form-control' name='title'>
+                <option value=''>Select</option>
+                <option>Mr</option>
+                <option>Ms</option>
+                <option>Mrs</option>
+              </select>
+            </div>
+          </div>
+<!--           <div class='col-sm-4 hide'> -->
+                    <div class='cstm hide'>
+            <div id='marital_status'class='form-group hide'>
+              <label>Marital Status</label>
+              <select class='form-control maritial-title-input' name='marital_status'>
+                <option value=''>Select</option>
+                <option>Single</option>
+                <option>Married</option>
+                <option>Widow/Widower</option>
+              </select>
+            </div></div>
+<!--           <div class='col-sm-4 hide'> -->
+                    <div class='cstm'>
+            <div id='mobile'class='form-group'>          
+              <label>Phone No<em>*</em></label>
+              <input class='form-control phone-input' type='text'  name='mobile' data-inputmask=''mask': '0399-9999999'' placeholder='0300-0000000' maxlength='11' minlength='11' required />
+            </div>
+          </div>
+<!--         </div>       -->
+<!--         <div class='row'> -->
+<!--           <div class='col-sm-4 hide'>        -->
+                    <div class='cstm'>
+            <div id='first_name' class='form-group'>
+              <label>First Name <em>*</em></label>
+              <input class='form-control name-input' onkeydown='return alphaOnly(event);' type='text' name='first_name' required/>
+            </div>
+          </div>
+<!--           <div class='col-sm-4 hide'> -->
+                    <div class='cstm hide'>
+            <div id='middle_name' class='form-group hide'>
+              <label>Middle Name</label>
+              <input class='form-control name-input' onkeydown='return alphaOnly(event);' type='text' name='middle_name' />
+            </div>
+          </div>
+<!--           <div class='col-sm-4 hide'> -->
+                    <div class='cstm'>
+            <div id='last_name' class='form-group'>
+              <label>Last Name <em>*</em></label>
+              <input class='form-control name-input' onkeydown='return alphaOnly(event);'  type='text' name='last_name' required />
+            </div>
+          </div>
+<!--         </div>       -->
+<!--         <div class='row'> -->
+<!--           <div class='col-sm-4 hide'>        -->
+                    <div class='cstm hide'>
+            <div id='date_of_birth' class='form-group hide'>         
+              <label>Date of Birth <em>*</em></label>
+              <input class='form-control date-input date' name='date_of_birth' type='date' data-inputmask=''alias': 'date'' placeholder='dd/mm/yyyy'/>          
+            </div>
+          </div>
+<!--           <div class='col-sm-4 hide'> -->
+                    <div class='cstm hide'>
+            <div id='age' class='form-group hide'>
+              <label>Age <em>*</em></label>
+              <input class='form-control native-title-input' name='age' type='number' min='1' max='70'/>
+            </div>
+          </div>
+<!--         </div> -->
+<!--           <div class='col-sm-4 hide'> -->
+                    <div class='cstm hide'>
+            <div id='religion' class='form-group hide'>
+              <label>Religion <em>*</em></label>
+              <select class='form-control religion-title-input' name='religion'>
+                <option value=''>Select</option>
+                <option>Muslim</option>
+                <option>Non-Muslim</option>
+              </select>
+            </div>
+          </div>
+<!--           <div class='col-sm-4 hide'> -->
+                    <div class='cstm'>
+            <div id='email'class='form-group'>
+              <label>Email <em>*</em></label>
+              <input class='form-control name-input' type='email' name='email' required='' />
+            </div>
+          </div>
+<!--         </div>       -->
+<!--         <div class='row'> -->
+<!--           <div class='col-sm-4 hide'>        -->
+                    <div class='cstm hide'>
+            <div id='gender'class='form-group hide'>
+              <label>Gender <em>*</em></label>
+              <select class='form-control gender-title-input' name='gender'>
+                <option value=''>Select</option>
+                <option>Male</option>
+                <option>Female</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+<!--           <div class='col-sm-4 hide'> -->
+                    <div class='cstm hide'>
+            <div id='language' class='form-group hide'>
+              <label>Native Language</label>
+              <select class='form-control native-title-input' name='language'>
+                <option value=''>Select</option>
+                <option value='Urdu'>Urdu</option>
+                <option value='English'>English</option>
+                <option value='Arabic'>Arabic</option>
+                <option value='Punjabi'>Punjabi</option>
+                <option value='Sindhi'>Sindhi</option>
+                <option value='Balochi'>Balochi</option>
+                <option value='Kashmiri'>Kashmiri</option>
+                <option value='Saraiki'>Saraiki</option>
+                <option value='Pashto'>Pashto</option>
+                <option value='Hindko'>Hindko</option>
+                <option value='Other'>Other</option>
+              </select>
+            </div>
+          </div>
+<!--         </div> -->
+<!--         <div class='row'> -->
+<!--           <div class='col-sm-4 hide'> -->
+                    <div class='cstm hide'>
+            <div id='cnic' class='form-group hide'>
+              <label>CNIC <em>*</em></label>
+              <input id='cnic' class='form-control minlength='13' maxlength='13' type='text' name='cnic' data-inputmask=''mask': placeholder='XXXXXXXXXXXXX'/>
+            </div>
+          </div>
+<!--           <div class='col-sm-4 hide'> -->
+                    <div class='cstm hide'>
+            <div id='cnic_issue_date' class='form-group hide'>            
+              <label>Issue Date<em>*</em></label>              
+              <input class='date' name='cnic_issue_date' type='date' data-inputmask=''alias': 'date'' placeholder='dd/mm/yyyy'/>                                       
+            </div>
+          </div>
+<!--           <div class='col-sm-4 hide'> -->
+                    <div class='cstm hide'>
+            <div id='cnic_expiry_date' class='form-group hide'>         
+              <label>EXP Date<em>*</em></label>            
+              <input  class='input-text date' name='cnic_expiry_date' type='date' data-inputmask=''alias': 'date'' placeholder='dd/mm/yyyy'/>    
+            </div>
+          </div>
+<!--         </div>   -->
+<!--         <div class='row'> -->
+<!--           <div class='col-sm-4 hide'> -->
+                    <div class='cstm hide'>
+            <div id='city' class='form-group hide'>
+              <label>City </label>
+               <input class='form-control city-input' type='text' name='city' />
+              <!--<select class='form-control city-input' name='city' >
+                <option value=''>Select</option>
+              </select>-->
+            </div>
+          </div>
+<!--           <div class='col-sm-4 hide'> -->
+                    <div class='cstm hide'>
+            <div id='country' class='form-group hide'>            
+              <label>Country</label>
+              <input class='form-control country-input' type='text' name='country' maxlength='25' />                      
+            </div>
+          </div>
+<!--           <div class='col-sm-4 hide'> -->
+                    <div class='cstm hide'>
+            <div id='zip_code' class='form-group hide'>         
+              <label>Zip Code</label>
+              <input class='form-control zip_code-input' type='text' name='zip_code' maxlength='15' />
+            </div>
+          </div>
+<!--         </div>  -->
+<!--         <div class='row'>     -->
+<!--           <div class='col-sm-8 hide'> -->
+          <div class='cstm hide'>
+            <div id='address_present'class='form-group hide'>
+              <label>Address <em>*</em></label>
+              <input class='form-control address_present-input' type='text' name='address_present' />
+            </div>          
+          </div>
+        </div>
+<!--       </div> -->
+        <br style='clear:both;'>
+        <!--      Education    -->
+        <div class='custom'>
+          <div class='acadamic-form-info education hide'>
+            <h2>ACADEMIC INFO</h2>
+            <span class='add-more'><a>Add More</a><i class='fa fa-plus'></i></span>
+            <span class='add-minus'><a>Close More</a><i class='fa fa-minus'></i></span>
+          </div>
+          <div class='row education hide'>
+            <div class='col-md-4 col-sm-12 col-xs-12 first-col hide'>
+              <fieldset class='fieldset'>
+                <div class='field degree hide'>
+                  <label class='label' for='degree'>Degree</label>
+                  <select class='form-control' id='degree' name='education[][degree]'>
+                    <option value=''>Select</option>
+                    <option value='Middle'>Middle</option>
+                    <option value='Matric'>Matric</option>
+                    <option value='Intermediate'>Intermediate</option>
+                    <option value='O/A-level'>O/A-level</option>
+                    <option value='Bachelors'>Bachelors</option>
+                    <option value='Master'>Master</option>
+                    <option value='Mphil'>Mphil</option>
+                    <option value='Doctral PHP'>Doctral PHD</option>
+                    <option name='Other' value='Other'>Other</option>
+                  </select>
+                </div>        
+                <div class='field institution hide'>
+                  <label class='label' for='institution'>Institute</label>
+                  <select class='form-control' id='institution' name='education[][institution]'>
+                    <option value=''>Select</option>
+                  </select>
+                <input name='education[][institution]' placeholder='Enter Institute' class='input-text hide' type='text' disabled/>
+                  <i class='fa fa-close hide'></i>
+                </div>         
+              </fieldset>
+            </div>
+            <div class='col-md-4 col-sm-12 col-xs-12 hide'>
+              <fieldset class='fieldset'>
+                <div class='field education_start_date hide'>
+                  <label class='label' for='education_start_date'>Start Date<em>*</em></label>        
+                  <input name='education[][start]' data-inputmask=''alias': 'date'' id='education_start_date' class='input-text date' type='date' placeholder='dd/mm/yyyy' />
+                </div>
+                <div class='field grade hide'>
+                  <label class='label' for='grade'>Grade/CGPA</label>
+                  <input name='education[][grade]' id='grade' class='input-text' min='1' max='4' step='0.1' type='number'/>
+                </div>
+              </fieldset>
+            </div>
+            <div class='col-md-4 col-sm-12 col-xs-12 last-col hide'>
+              <fieldset class='fieldset'>
+                <div class='field education_end_date hide'>
+                  <label class='label' for='education_end_date'>End Date<em>*</em></label>       
+                  <input name='education[][end]' data-inputmask=''alias': 'date'' id='education_end_date' class='input-text date' type='date'  placeholder='dd/mm/yyyy'/>        
+                </div>
+              </fieldset>
+            </div>
+          </div>
+        </div>
+        <div class='custom'>
+          <div class='acadamic-form-info-more'>
+            <h2>ACADEMIC INFO</h2>
+            <span class='add-more-1'><a>Add More</a><i class='fa fa-plus'></i></span>
+            <span class='add-minus-1'><a>Close More</a><i class='fa fa-minus'></i></span>
+          </div>
+          <div class='row acadamic-form-info-more'>
+            <div class='col-md-4 col-sm-12 col-xs-12 first-col hide'>
+              <fieldset class='fieldset'>
+                <div class='field degree hide'>
+                  <label class='label' for='degree1'>Degree</label>
+                  <select class='form-control' id='degree1' name='education[][degree]' disabled>
+                    <option value=''>Select</option>
+                    <option value='Middle'>Middle</option>
+                    <option value='Matric'>Matric</option>
+                    <option value='Intermediate'>Intermediate</option>
+                    <option value='O/A-level'>O/A-level</option>
+                    <option value='Bachelors'>Bachelors</option>
+                    <option value='Master'>Master</option>
+                    <option value='Mphil'>Mphil</option>
+                    <option value='Doctral PHP'>Doctral PHD</option>
+                    <option name='Other' value='Other'>Other</option>
+                  </select>
+                </div>         
+                <div class='field institution hide'>
+                  <label class='label' for='institution1'>Institute</label>
+                  <select class='form-control' id='institution1' name='education[][institution]'>
+                    <option value=''>Select</option>
+                  </select>
+                <input name='education[][institution]' placeholder='Enter Institute' class='input-text hide' type='text' disabled/>
+                  <i class='fa fa-close hide'></i>
+                </div>        
+              </fieldset>
+            </div>
+            <div class='col-md-4 col-sm-12 col-xs-12 hide'>
+              <fieldset class='fieldset'>
+                <div class='field education_start_date hide'>
+                  <label class='label' for='education_start_date1'>Start Date<em>*</em></label>        
+                  <input name='education[][start]' data-inputmask=''alias': 'date'' id='education_start_date1' class='input-text date' type='date'  placeholder='dd/mm/yyyy' disabled/>
+                </div>
+                <div class='field grade hide'>
+                  <label class='label' for='grade1'>Grade/CGPA</label>
+                  <input name='education[][grade]' id='grade1' class='input-text' type='number'  min='1' max='4' step='0.1' disabled/>
+                </div>
+              </fieldset>
+            </div>
+            <div class='col-md-4 col-sm-12 col-xs-12 last-col hide'>
+              <fieldset class='fieldset'>
+                <div class='field education_end_date hide'>
+                  <label class='label' for='education_end_date1'>End Date<em>*</em></label>       
+                  <input name='education[][end]' data-inputmask=''alias': 'date'' id='education_end_date1' class='input-text date' type='date' placeholder='dd/mm/yyyy' disabled/>        
+                </div>
+              </fieldset>
+            </div>
+          </div>
+        </div>     
+        <div class='custom'>  
+          <div class='acadamic-form-info-more-2'>
+            <h2>ACADEMIC INFO</h2>
+            <span class='add-more-2'><a>Add More</a><i class='fa fa-plus'></i></span>
+            <span class='add-minus-2'><a>Close More</a><i class='fa fa-minus'></i></span>
+          </div>
+          <div class='row acadamic-form-info-more-2'>
+            <div class='col-md-4 col-sm-12 col-xs-12 first-col hide'>
+              <fieldset class='fieldset'>
+                <div class='field degree hide'>
+                  <label class='label' for='degree2'>Degree</label>
+                  <select class='form-control' id='degree2' name='education[][degree]' disabled >
+                    <option value=''>Select</option>
+                    <option value='Middle'>Middle</option>
+                    <option value='Matric'>Matric</option>
+                    <option value='Intermediate'>Intermediate</option>
+                    <option value='O/A-level'>O/A-level</option>
+                    <option value='Bachelors'>Bachelors</option>
+                    <option value='Master'>Master</option>
+                    <option value='Mphil'>Mphil</option>
+                    <option value='Doctral PHP'>Doctral PHD</option>
+                    <option name='Other' value='Other'>Other</option>
+                  </select>
+                </div>           
+                <div class='field institution hide'>
+                  <label class='label' for='institution2'>Institute</label>
+                  <select class='form-control' id='institution2' name='education[][institution]'>
+                    <option value=''>Select</option>
+                  </select>
+                <input name='education[][institution]' placeholder='Enter Institute' class='input-text hide' type='text' disabled/>
+                  <i class='fa fa-close hide'></i>
+                </div>      
+              </fieldset>
+            </div>
+            <div class='col-md-4 col-sm-12 col-xs-12 hide'>
+              <fieldset class='fieldset'>
+                <div class='field education_start_date hide'>
+                  <label class='label' for='education_start_date2'>Start Date<em>*</em></label>        
+                  <input name='education[][start]' data-inputmask=''alias': 'date'' id='education_start_date2' class='input-text date' type='date'  placeholder='dd-mm-yyyy' disabled/>
+                </div>
+                <div class='field grade hide'>
+                  <label class='label' for='grade2'>Grade/CGPA</label>
+                  <input name='education[][grade]' id='grade2' class='input-text' min='1' max='4' step='0.1' type='number'/>
+                </div>
+              </fieldset>
+            </div>
+            <div class='col-md-4 col-sm-12 col-xs-12 last-col hide'>
+              <fieldset class='fieldset'>
+                <div class='field education_end_date hide'>
+                  <label class='label' for='education_end_date2'>End Date<em>*</em></label>       
+                  <input name='education[][end]' data-inputmask=''alias': 'date'' id='education_end_date2' class='input-text date' type='date'  placeholder='dd-mm-yyyy' disabled/>        
+                </div>
+              </fieldset>
+            </div>
+          </div>
+        </div>
+        <div class='custom'> 
+          <div class='acadamic-form-info-more-3'>
+            <h2>ACADEMIC INFO</h2>
+            <!--   <span class='add-more-3'><a>Add More</a><i class='fa fa-plus'></i></span>
+<span class='add-minus-3'><a>Close More</a><i class='fa fa-minus'></i></span> -->
+          </div>
+          <div class='row acadamic-form-info-more-3'>
+            <div class='col-md-4 col-sm-12 col-xs-12 first-col hide'>
+              <fieldset class='fieldset'>
+                <div class='field degree hide'>
+                  <label class='label' for='degree3'>Degree</label>
+                  <select class='form-control' id='degree3' name='education[][degree]' disabled >
+                    <option value=''>Select</option>
+                    <option value='Middle'>Middle</option>
+                    <option value='Matric'>Matric</option>
+                    <option value='Intermediate'>Intermediate</option>
+                    <option value='O/A-level'>O/A-level</option>
+                    <option value='Bachelors'>Bachelors</option>
+                    <option value='Master'>Master</option>
+                    <option value='Mphil'>Mphil</option>
+                    <option value='Doctral PHP'>Doctral PHD</option>
+                    <option name='Other' value='Other'>Other</option>
+                  </select>
+                </div>          
+                <div class='field institution hide'>
+                  <label class='label' for='institution3'>Institute</label>
+                  <select class='form-control' id='institution3' name='education[][institution]'>
+                    <option value=''>Select</option>
+                  </select>
+                <input name='education[][institution]' placeholder='Enter Institute' class='input-text hide' type='text' disabled/>
+                  <i class='fa fa-close hide'></i>
+                </div>       
+              </fieldset>
+            </div>
+            <div class='col-md-4 col-sm-12 col-xs-12 hide'>
+              <fieldset class='fieldset'>
+                <div class='field education_start_date hide'>
+                  <label class='label' for='education_start_date3'>Start Date<em>*</em></label>        
+                  <input name='education[][start]' data-inputmask=''alias': 'date'' id='education_start_date3' class='input-text date' type='date'  placeholder='dd-mm-yyyy' disabled/>
+                </div>
+                <div class='field grade hide'>
+                  <label class='label' for='grade3'>Grade/CGPA</label>
+                  <input name='education[][grade]' id='grade3' class='input-text' min='1' max='4' step='0.1' type='number'/>
+                  </div>
+              </fieldset>
+            </div>
+            <div class='col-md-4 col-sm-12 col-xs-12 last-col hide'>
+              <fieldset class='fieldset'>
+                <div class='field education_end_date hide'>
+                  <label class='label' for='education_end_date3'>End Date<em>*</em></label>       
+                  <input name='education[][end]' data-inputmask=''alias': 'date'' id='education_end_date3' class='input-text date' type='date'  placeholder='dd-mm-yyyy' disabled/>        
+                </div>
+              </fieldset>
+            </div>
+          </div>
+        </div>
+        <!--       Experience   -->
+                <div class='custom'>      
+          <div class='personal-form-info experience hide'>
+            <h2>PROFESSIONAL EXPERIENCE</h2>
+            <span class='add-more-info'><a>Add More</a><i class='fa fa-plus'></i></span>
+            <span class='add-minus-info'><a>Close More</a><i class='fa fa-minus'></i></span>
+          </div>
+          <div class='row experience hide'>
+            <div class='col-md-4 col-sm-6 col-xs-6 first-col hide'>
+              <fieldset class='fieldset'>
+                <div class='field employer_name hide'>
+                  <label class='label' for='employer_name'>Employer</label>       
+                  <input name='professional[][employer_name]' id='employer_name' class='input-text' onkeydown='return alphaOnly(event);' type='text' pattern='[A-Za-z]*' />        
+                </div>
+              </fieldset>
+            </div>
+            <div class='col-md-4 col-sm-6 col-xs-6 last-col hide'>
+              <fieldset class='fieldset'>
+                <div class='field position hide'>
+                  <label class='label' for='position'>Position</label>        
+                  <input name='professional[][position]' id='position' class='input-text' onkeydown='return alphaOnly(event);' type='text'/>       
+                </div>
+              </fieldset>
+            </div>
+<!--                 <div class='row change'> -->
+                  <div class='col-md-4 col-sm-6 col-xs-6 first-col hide'>
+                    <fieldset class='fieldset'>
+                      <div class='field experience_start_date hide'>
+                        <label class='label' for='experience_start_date'>Start Date</label>              
+                        <input name='professional[][start]' id='experience_start_date' class='input-text date' data-inputmask=''alias': 'date'' type='date'  placeholder='dd/mm/yyyy' />             
+                      </div>
+                    </fieldset>
+                  </div>
+                  <div class='col-md-4 col-sm-6 col-xs-6 last-col hide'>
+                    <fieldset class='fieldset'>
+                      <div class='field experience_end_date hide'>
+                        <label class='label' for='experience_end_date'>End Date</label>              
+                        <input name='professional[][end]' id='experience_end_date' class='input-text date' type='date' data-inputmask=''alias': 'date''  placeholder='dd/mm/yyyy'/>              
+                      </div>
+                    </fieldset>
+                  </div>
+<!--                 </div> -->
+            <div class='col-md-4 col-sm-6 col-xs-6 period last-col hide'>
+            <fieldset class='fieldset'>
+            <div id='period' class='form-group field period hide'>
+              <label>Period <em>*</em></label>
+              <select class='form-control native-title-input' name='period'>
+                <option value=''>Select</option>
+                <option value='Fresh'>Fresh</option>
+                <option value='Less Than 1 Year'>Less Than 1 Year</option>
+                <option value='1-2 Years'>1-2 Years</option>
+                <option value='3-4 Years'>3-4 Years</option>
+                <option value='5 Years'>5 Years</option>
+                <option value='More Than 5 Years'>More Than 5 Years</option>
+              </select>
+            </div>
+              </fieldset>
+          </div>
+          </div>
+        </div>
+        <div class='custom'>      
+          <div class='personal-form-info-more experience hide'>
+            <h2>PROFESSIONAL EXPERIENCE</h2>
+            <span class='add-more-info-1'><a>Add More</a><i class='fa fa-plus'></i></span>
+            <span class='add-minus-info-1'><a>Close More</a><i class='fa fa-minus'></i></span>
+          </div>
+          <div class='row personal-form-info-more experience hide'>
+            <div class='col-md-4 col-sm-6 col-xs-6 first-col hide'>
+              <fieldset class='fieldset'>
+                <div class='field employer_name hide'>
+                  <label class='label' for='employer_name_1'>Employer</label>       
+                  <input name='professional[][employer_name]' id='employer_name_1' class='input-text' onkeydown='return alphaOnly(event);' type='text' pattern='[A-Za-z]*' disabled />        
+                </div>
+              </fieldset>
+            </div>
+            <div class='col-md-4 col-sm-6 col-xs-6 last-col hide'>
+              <fieldset class='fieldset'>
+                <div class='field position hide'>
+                  <label class='label' for='position_1'>Position</label>        
+                  <input name='professional[][position]' id='position_1' class='input-text' onkeydown='return alphaOnly(event);' type='text' disabled/>       
+                </div>
+              </fieldset>
+            </div>
+<!--                 <div class='row change'> -->
+                  <div class='col-md-4 col-sm-6 col-xs-6 first-col hide'>
+                    <fieldset class='fieldset'>
+                      <div class='field experience_start_date hide'>
+                        <label class='label' for='experience_start_date_1'>Start Date</label>              
+                        <input name='professional[][start]' data-inputmask=''alias': 'date'' id='experience_start_date_1' class='input-text date' type='date'  placeholder='dd/mm/yyyy' disabled />             
+                      </div>
+                    </fieldset>
+                  </div>
+                  <div class='col-md-4 col-sm-6 col-xs-6 last-col hide'>
+                    <fieldset class='fieldset'>
+                      <div class='field experience_end_date hide'>
+                        <label class='label' for='experience_end_date_1'>End Date</label>              
+                        <input name='professional[][end]' id='experience_end_date_1' data-inputmask=''alias': 'date'' class='input-text date' type='date'  placeholder='dd/mm/yyyy' disabled/>              
+                      </div>
+                    </fieldset>
+                  </div>
+<!--                 </div> -->
+            <div class='col-md-4 col-sm-6 col-xs-6 last-col hide'>
+            <fieldset class='fieldset'>
+            <div id='period' class='form-group field period hide'>
+              <label>Period <em>*</em></label>
+              <select class='form-control native-title-input' name='period'>
+                <option value=''>Select</option>
+                <option value='Fresh'>Fresh</option>
+                <option value='Less Than 1 Year'>Less Than 1 Year</option>
+                <option value='1-2 Years'>1-2 Years</option>
+                <option value='3-4 Years'>3-4 Years</option>
+                <option value='5 Years'>5 Years</option>
+                <option value='More Than 5 Years'>More Than 5 Years</option>
+              </select>
+            </div>
+              </fieldset>
+          </div>
+          </div>
+        </div>
+        <div class='custom'>      
+          <div class='personal-form-info-more-2 experience hide'>
+            <h2>PROFESSIONAL EXPERIENCE</h2>
+            <span class='add-more-info-2'><a>Add More</a><i class='fa fa-plus'></i></span>
+            <span class='add-minus-info-2'><a>Close More</a><i class='fa fa-minus'></i></span>
+          </div>
+          <div class='row personal-form-info-more-2 experience hide'>
+            <div class='col-md-4 col-sm-6 col-xs-6 first-col hide'>
+              <fieldset class='fieldset'>
+                <div class='field employer_name hide'>
+                  <label class='label' for='employer_name_2'>Employer</label>       
+                  <input name='professional[][employer_name]' id='employer_name_2' class='input-text' onkeydown='return alphaOnly(event);' type='text' pattern='[A-Za-z]*' disabled/>        
+                </div>
+              </fieldset>
+            </div>
+            <div class='col-md-4 col-sm-6 col-xs-6 last-col hide'>
+              <fieldset class='fieldset'>
+                <div class='field position hide'>
+                  <label class='label' for='position_2'>Position</label>        
+                  <input name='professional[][position]' id='position_2' class='input-text' onkeydown='return alphaOnly(event);' type='text' disabled/>       
+                </div>
+              </fieldset>
+            </div>
+<!--                 <div class='row change'> -->
+                  <div class='col-md-4 col-sm-6 col-xs-6 first-col hide'>
+                    <fieldset class='fieldset'>
+                      <div class='field experience_start_date hide'>
+                        <label class='label' for='experience_start_date_2'>Start Date</label>              
+                        <input name='professional[][start]' id='experience_start_date_2' data-inputmask=''alias': 'date'' class='input-text date' type='date'  placeholder='dd/mm/yyyy' disabled/>             
+                      </div>
+                    </fieldset>
+                  </div>
+                  <div class='col-md-4 col-sm-6 col-xs-6 last-col hide'>
+                    <fieldset class='fieldset'>
+                      <div class='field experience_end_date hide'>
+                        <label class='label' for='experience_end_date_2'>End Date</label>              
+                        <input name='professional[][end]' data-inputmask=''alias': 'date'' id='experience_end_date_2' class='input-text date' type='date'  placeholder='dd/mm/yyyy' disabled/>              
+                      </div>
+                    </fieldset>
+                  </div>
+<!--                 </div> -->
+            <div class='col-md-4 col-sm-6 col-xs-6 last-col hide'>
+            <fieldset class='fieldset'>
+            <div id='period' class='form-group field period hide'>
+              <label>Period <em>*</em></label>
+              <select class='form-control native-title-input' name='period'>
+                <option value=''>Select</option>
+                <option value='Fresh'>Fresh</option>
+                <option value='Less Than 1 Year'>Less Than 1 Year</option>
+                <option value='1-2 Years'>1-2 Years</option>
+                <option value='3-4 Years'>3-4 Years</option>
+                <option value='5 Years'>5 Years</option>
+                <option value='More Than 5 Years'>More Than 5 Years</option>
+              </select>
+            </div>
+              </fieldset>
+          </div>
+          </div>
+        </div>
+        <div class='custom'>      
+          <div class='personal-form-info-more-3 experience hide'>
+            <h2>PROFESSIONAL EXPERIENCE</h2>
+            <!--           <span class='add-more-info-3'><a>Add More</a><i class='fa fa-plus'></i></span>
+<span class='add-minus-info-3'><a>Close More</a><i class='fa fa-minus'></i></span> -->
+          </div>
+          <div class='row personal-form-info-more-3 experience hide'>
+            <div class='col-md-4 col-sm-6 col-xs-6 first-col hide'>
+              <fieldset class='fieldset'>
+                <div class='field employer_name hide'>
+                  <label class='label' for='employer_name_3'>Employer</label>       
+                  <input name='professional[employer_name]' id='employer_name_3' class='input-text' onkeydown='return alphaOnly(event);' type='text' pattern='[A-Za-z]*' disabled/>        
+                </div>
+              </fieldset>
+            </div>
+            <div class='col-md-4 col-sm-6 col-xs-6 last-col hide'>
+              <fieldset class='fieldset'>
+                <div class='field position hide'>
+                  <label class='label' for='position_3'>Position</label>        
+                  <input name='professional[][position]' id='position_3' class='input-text' onkeydown='return alphaOnly(event);' type='text' disabled/>       
+                </div>
+              </fieldset>
+            </div>
+<!--                 <div class='row change'> -->
+                  <div class='col-md-4 col-sm-6 col-xs-6 first-col hide'>
+                    <fieldset class='fieldset'>
+                      <div class='field experience_start_date hide'>
+                        <label class='label' for='experience_start_date_3'>Start Date</label>              
+                        <input name='professional[][start]' data-inputmask=''alias': 'date'' id='experience_start_date_3' class='input-text date' type='date'  placeholder='dd/mm/yyyy' disabled/>             
+                      </div>
+                    </fieldset>
+                  </div>
+                  <div class='col-md-4 col-sm-6 col-xs-6 last-col hide'>
+                    <fieldset class='fieldset'>
+                      <div class='field experience_end_date hide'>
+                        <label class='label' for='experience_end_date_3'>End Date</label>              
+                        <input name='professional[][end]' data-inputmask=''alias': 'date'' id='experience_end_date_3' class='input-text date' type='date'  placeholder='dd/mm/yyyy' disabled/>              
+                      </div>
+                    </fieldset>
+                  </div>
+<!--                 </div> -->
+            <div class='col-md-4 col-sm-6 col-xs-6 last-col hide'>
+            <fieldset class='fieldset'>
+            <div id='period' class='form-group field period hide'>
+              <label>Period <em>*</em></label>
+              <select class='form-control native-title-input' name='period'>
+                <option value=''>Select</option>
+                <option value='Fresh'>Fresh</option>
+                <option value='Less Than 1 Year'>Less Than 1 Year</option>
+                <option value='1-2 Years'>1-2 Years</option>
+                <option value='3-4 Years'>3-4 Years</option>
+                <option value='5 Years'>5 Years</option>
+                <option value='More Than 5 Years'>More Than 5 Years</option>
+              </select>
+            </div>
+              </fieldset>
+          </div>
+          </div>
+        </div>
+        <!--       Certificate   -->
+        <div class='custom'>
+          <div class='certification-form-info certificate hide'>
+            <h2>CERTIFICATIONS</h2>
+            <span class='add-more-cert'><a>Add More</a><i class='fa fa-plus'></i></span>
+            <span class='add-minus-cert'><a>Close More</a><i class='fa fa-minus'></i></span>
+          </div>
+          <div class='row certificate hide'>
+            <div class='col-md-4 col-sm-4 col-xs-4 first-col hide'>
+              <fieldset class='fieldset'>
+                <div class='field certificate_name hide'>
+                  <label class='label' for='certificate_name'>Certification Name</label>          
+                  <input name='certificate[][name]' id='certificate_name' class='input-text' type='text' />         
+                </div>
+              </fieldset>
+            </div>
+            <div class='col-md-4 col-sm-4 col-xs-4 hide'>
+              <fieldset class='fieldset'>
+                <div class='field certificate_start_date hide'>
+                  <label class='label' for='certificate_start_date'>Start Date</label>        
+                  <input name='certificate[][start]' data-inputmask=''alias': 'date'' id='certificate_start_date' class='input-text date' type='date'  placeholder='dd/mm/yyyy'/>        
+                </div>
+              </fieldset>
+            </div>
+            <div class='col-md-4 col-sm-4 col-xs-4 last-col hide'>
+              <fieldset class='fieldset'>
+                <div class='field certificate_end_date hide'>
+                  <label class='label' for='certificate_end_date'>End Date</label>     
+                  <input name='certificate[][end]' data-inputmask=''alias': 'date'' id='certificate_end_date' class='input-text date' type='date'  placeholder='dd/mm/yyyy'/>     
+                </div>
+              </fieldset>
+            </div>
+          </div>
+        </div>
+        <div class='custom'>
+          <div class='certification-form-info-more certificate hide'>
+            <h2>CERTIFICATIONS</h2>
+            <span class='add-more-cert-1'><a>Add More</a><i class='fa fa-plus'></i></span>
+            <span class='add-minus-cert-1'><a>Close More</a><i class='fa fa-minus'></i></span>
+          </div>
+          <div class='row certification-form-info-more certificate hide'>
+            <div class='col-md-4 col-sm-4 col-xs-4 first-col hide'>
+              <fieldset class='fieldset'>
+                <div class='field certificate_name hide'>
+                  <label class='label' for='certificate_name_1'>Certification Name</label>          
+                  <input name='certificate[][name]' id='certificate_name_1' class='input-text' type='text' disabled />         
+                </div>
+              </fieldset>
+            </div>
+            <div class='col-md-4 col-sm-4 col-xs-4 hide'>
+              <fieldset class='fieldset'>
+                <div class='field certificate_start_date hide'>
+                  <label class='label' for='certificate_start_date_1'>Start Date</label>        
+                  <input name='certificate[][start]' id='certificate_start_date_1' data-inputmask=''alias': 'date'' class='input-text date' type='date' placeholder='dd/mm/yyyy' disabled/>        
+                </div>
+              </fieldset>
+            </div>
+            <div class='col-md-4 col-sm-4 col-xs-4 last-col hide'>
+              <fieldset class='fieldset'>
+                <div class='field certificate_end_date hide'>
+                  <label class='label' for='certificate_end_date_1'>End Date</label>     
+                  <input name='certificate[][end]' id='certificate_end_date_1' data-inputmask=''alias': 'date'' class='input-text date' type='date' placeholder='dd/mm/yyyy' disabled/>     
+                </div>
+              </fieldset>
+            </div>
+          </div>
+        </div>
+        <div class='custom'>
+          <div class='certification-form-info-more-2 certificate hide'>
+            <h2>CERTIFICATIONS</h2>
+            <span class='add-more-cert-2'><a>Add More</a><i class='fa fa-plus'></i></span>
+            <span class='add-minus-cert-2'><a>Close More</a><i class='fa fa-minus'></i></span>
+          </div>
+          <div class='row certification-form-info-more-2 certificate hide'>
+            <div class='col-md-4 col-sm-4 col-xs-4 first-col hide'>
+              <fieldset class='fieldset'>
+                <div class='field certificate_name hide'>
+                  <label class='label' for='certificate_name_2'>Certification Name</label>          
+                  <input name='certificate[][name]' id='certificate_name_2' class='input-text' type='text' disabled />         
+                </div>
+              </fieldset>
+            </div>
+            <div class='col-md-4 col-sm-4 col-xs-4 hide'>
+              <fieldset class='fieldset'>
+                <div class='field certificate_start_date hide'>
+                  <label class='label' for='certificate_start_date_2'>Start Date</label>        
+                  <input name='certificate[][start]' id='certificate_start_date_2' data-inputmask=''alias': 'date'' class='input-text date' type='date' placeholder='dd/mm/yyyy' disabled/>        
+                </div>
+              </fieldset>
+            </div>
+            <div class='col-md-4 col-sm-4 col-xs-4 last-col hide'>
+              <fieldset class='fieldset'>
+                <div class='field certificate_end_date hide'>
+                  <label class='label' for='certificate_end_date_2'>End Date</label>     
+                  <input name='certificate[][end]' id='certificate_end_date_2' data-inputmask=''alias': 'date'' class='input-text date' type='date' placeholder='dd/mm/yyyy' disabled/>     
+                </div>
+              </fieldset>
+            </div>
+          </div>
+        </div>
+        <div class='custom'>
+          <div class='certification-form-info-more-3 certificate hide'>
+            <h2>CERTIFICATIONS</h2>
+            <!--         <span class='add-more-cert-3'><a>Add More</a><i class='fa fa-plus'></i></span>
+<span class='add-minus-cert-3'><a>Close More</a><i class='fa fa-minus'></i></span> -->
+          </div>
+          <div class='row certification-form-info-more-3 certificate hide'>
+            <div class='col-md-4 col-sm-4 col-xs-4 first-col hide'>
+              <fieldset class='fieldset'>
+                <div class='field certificate_name hide'>
+                  <label class='label' for='certificate_name_3'>Certification Name</label>          
+                  <input name='certificate[][name]' id='certificate_name_3' class='input-text' type='text' disabled />         
+                </div>
+              </fieldset>
+            </div>
+            <div class='col-md-4 col-sm-4 col-xs-4 hide'>
+              <fieldset class='fieldset'>
+                <div class='field certificate_start_date hide'>
+                  <label class='label' for='certificate_start_date_3'>Start Date</label>        
+                  <input name='certificate[][start]' id='certificate_start_date_3' data-inputmask=''alias': 'date'' class='input-text date' type='date' placeholder='dd/mm/yyyy' disabled/>        
+                </div>
+              </fieldset>
+            </div>
+            <div class='col-md-4 col-sm-4 col-xs-4 last-col hide'>
+              <fieldset class='fieldset'>
+                <div class='field certificate_end_date hide'>
+                  <label class='label' for='certificate_end_date_3'>End Date</label>     
+                  <input name='certificate[][end]' id='certificate_end_date_3' data-inputmask=''alias': 'date'' class='input-text date' type='date' placeholder='dd/mm/yyyy' disabled/>  
+<!--                    pattern='\d{4}/\d{1,2}/\d{1,2}' -->
+                </div>
+              </fieldset>
+            </div>
+          </div>
+        </div> 
+        <!--       Reference     -->
+        <div class='custom'>   
+          <div class='reference-form-info reference hide'>
+            <h2>REFERENCE(S)</h2>
+            <span class='add-more-ref'><a>Add More</a><i class='fa fa-plus'></i></span>
+            <span class='add-minus-ref'><a>Close More</a><i class='fa fa-minus'></i></span>
+          </div>
+          <div class='row reference hide'>
+            <div class='col-md-4 col-sm-4 col-xs-4 first-col hide'>
+              <fieldset class='fieldset'>
+                <div class='field reference_name hide'>
+                  <label class='label' for='reference_name'>Reference Name</label>        
+                  <input name='reference[][name]' id='reference_name' onkeydown='return alphaOnly(event);' type='text'/>       
+                </div>
+                <div class='field company hide'>
+                  <label class='label' for='company'>Company Name</label>       
+                  <input name='reference[][company]' id='company' class='input-text' type='text' />       
+                </div>
+              </fieldset>
+            </div>
+            <div class='col-md-4 col-sm-4 col-xs-4 hide'>
+              <fieldset class='fieldset'>
+                <div class='field relationship_type hide'>
+                  <label class='label' for='relationship_type'>Relationship</label>
+                  <select class='form-control' id='relationship_type' name='reference[][relationship_type]'>
+                    <option name='' value=''>Select</option>
+                    <option name='Brother' value='Brother'>Brother</option>
+                    <option name='Uncle' value='Uncle'>Uncle</option>
+                    <option name='Cousin' value='Cousin'>Cousin</option>
+                    <option name='Other' value='Other'>Other</option>
+                  </select>
+                </div>
+                <div class='field phone hide'>
+                  <label class='label' for='phone'>Phone Number</label>     
+                  <input name='reference[][phone]' id='phone' class='input-text phone-input' type='text' maxlength='14' placeholder='0300-0000000' />  
+                </div>
+              </fieldset>
+            </div>
+            <div class='col-md-4 col-sm-4 col-xs-4 last-col hide'>
+              <fieldset class='fieldset'>
+                <div class='field years_known hide'>
+                  <label class='label' for='years_known'>Years Known</label>     
+                  <input name='reference[][years_known]' id='years_known' class='input-text' type='text'/>     
+                </div>
+                <div class='field reference_email'>
+                  <label class='label' for='reference_email'>Email</label>    
+                  <input name='reference[][email]' id='reference_email' class='input-text' type='email' />     
+                </div>
+              </fieldset>
+            </div>
+          </div>
+        </div>   
+        <div class='custom'>   
+          <div class='reference-form-info-more reference hide'>
+            <h2>REFERENCE(S)</h2>
+            <span class='add-more-ref-1'><a>Add More</a><i class='fa fa-plus'></i></span>
+            <span class='add-minus-ref-1'><a>Close More</a><i class='fa fa-minus'></i></span>
+          </div>
+          <div class='row reference-form-info-more reference hide'>
+            <div class='col-md-4 col-sm-4 col-xs-4 first-col hide'>
+              <fieldset class='fieldset'>
+                <div class='field reference_name hide'>
+                  <label class='label' for='reference_name_1'>Reference Name</label>        
+                  <input name='reference[][name]' id='reference_name_1' onkeydown='return alphaOnly(event);' type='text' disabled/>       
+                </div>
+                <div class='field company hide'>
+                  <label class='label' for='company_1'>Company Name</label>       
+                  <input name='reference[][company]' id='company_1' class='input-text' type='text' disabled />       
+                </div>
+              </fieldset>
+            </div>
+            <div class='col-md-4 col-sm-4 col-xs-4 hide'>
+              <fieldset class='fieldset'>
+                <div class='field relationship_type hide'>
+                  <label class='label' for='relationship_type_1'>Relationship</label>
+                  <select class='form-control' id='relationship_type_1' name='reference[][relationship_type]' disabled>
+                    <option name='' value=''>Select</option>
+                    <option name='Brother' value='Brother'>Brother</option>
+                    <option name='Uncle' value='Uncle'>Uncle</option>
+                    <option name='Cousin' value='Cousin'>Cousin</option>
+                    <option name='Other' value='Other'>Other</option>
+                  </select>
+                </div>
+                <div class='field phone hide'>
+                  <label class='label' for='phone_1'>Phone Number</label>     
+                  <input name='reference[][phone]' id='phone_1' class='input-text phone-input' type='text' data-inputmask=''mask': '0399-9999999'' placeholder='0300-0000000' disabled />  
+                </div>
+              </fieldset>
+            </div>
+            <div class='col-md-4 col-sm-4 col-xs-4 last-col hide'>
+              <fieldset class='fieldset'>
+                <div class='field years_known hide'>
+                  <label class='label' for='years_known_1'>Years Known</label>     
+                  <input name='reference[][years_known]' id='years_known_1' class='input-text' type='text' disabled/>     
+                </div>
+                <div class='field reference_email'>
+                  <label class='label' for='reference_email_1'>Email</label>    
+                  <input name='reference[][email]' id='reference_email_1' class='input-text' type='email' disabled />     
+                </div>
+              </fieldset>
+            </div>
+          </div>
+        </div>   
+        <div class='custom'>   
+          <div class='reference-form-info-more-2 reference hide'>
+            <h2>REFERENCE(S)</h2>
+            <span class='add-more-ref-2'><a>Add More</a><i class='fa fa-plus'></i></span>
+            <span class='add-minus-ref-2'><a>Close More</a><i class='fa fa-minus'></i></span>
+          </div>
+          <div class='row reference-form-info-more-2 reference hide'>
+            <div class='col-md-4 col-sm-4 col-xs-4 first-col hide'>
+              <fieldset class='fieldset'>
+                <div class='field reference_name hide'>
+                  <label class='label' for='reference_name_2'>Reference Name</label>        
+                  <input name='reference[][name]' id='reference_name_2' onkeydown='return alphaOnly(event);' type='text' disabled/>       
+                </div>
+                <div class='field company hide'>
+                  <label class='label' for='company_2'>Company Name</label>       
+                  <input name='reference[][company]' id='company_2' class='input-text' type='text' disabled />       
+                </div>
+              </fieldset>
+            </div>
+            <div class='col-md-4 col-sm-4 col-xs-4 hide'>
+              <fieldset class='fieldset'>
+                <div class='field relationship_type hide'>
+                  <label class='label' for='relationship_type_2'>Relationship</label>
+                  <select class='form-control' id='relationship_type_2' name='reference[][relationship_type]' disabled>
+                    <option name='' value=''>Select</option>
+                    <option name='Brother' value='Brother'>Brother</option>
+                    <option name='Uncle' value='Uncle'>Uncle</option>
+                    <option name='Cousin' value='Cousin'>Cousin</option>
+                    <option name='Other' value='Other'>Other</option>
+                  </select>
+                </div>
+                <div class='field phone hide'>
+                  <label class='label' for='phone-2'>Phone Number</label>     
+                  <input name='reference[][phone]' id='phone_2' class='input-text phone-input' type='text' data-inputmask=''mask': '0399-9999999'' placeholder='0300-0000000' disabled/>  
+                </div>
+              </fieldset>
+            </div>
+            <div class='col-md-4 col-sm-4 col-xs-4 last-col hide'>
+              <fieldset class='fieldset'>
+                <div class='field years_known hide'>
+                  <label class='label' for='years_known_2'>Years Known</label>     
+                  <input name='reference[][years_known]' id='years_known_2' class='input-text' type='text' disabled/>     
+                </div>
+                <div class='field reference_email'>
+                  <label class='label' for='reference_email_2'>Email</label>    
+                  <input name='reference[][email]' id='reference_email_2' class='input-text' type='email' disabled/>     
+                </div>
+              </fieldset>
+            </div>
+          </div>
+        </div>   
+        <div class='custom'>   
+          <div class='reference-form-info-more-3 reference hide'>
+            <h2>REFERENCE(S)</h2>
+            <!--   <span class='add-more-ref'><a>Add More</a><i class='fa fa-plus'></i></span>
+<span class='add-minus-ref'><a>Close More</a><i class='fa fa-minus'></i></span> -->
+          </div>
+          <div class='row reference-form-info-more-3 reference hide'>
+            <div class='col-md-4 col-sm-4 col-xs-4 first-col hide'>
+              <fieldset class='fieldset'>
+                <div class='field reference_name hide'>
+                  <label class='label' for='reference_name_3'>Reference Name</label>        
+                  <input name='reference[][name]' id='reference_name_3' onkeydown='return alphaOnly(event);' type='text' disabled/>       
+                </div>
+                <div class='field company hide'>
+                  <label class='label' for='company_3'>Company Name</label>       
+                  <input name='reference[][company]' id='company_3' class='input-text' type='text' disabled/>       
+                </div>
+              </fieldset>
+            </div>
+            <div class='col-md-4 col-sm-4 col-xs-4 hide'>
+              <fieldset class='fieldset'>
+                <div class='field relationship_type hide'>
+                  <label class='label' for='relationship_type_3'>Relationship</label>
+                  <select class='form-control' id='relationship_type_3' name='reference[][relationship_type]' disabled>
+                    <option name='' value=''>Select</option>
+                    <option name='Brother' value='Brother'>Brother</option>
+                    <option name='Uncle' value='Uncle'>Uncle</option>
+                    <option name='Cousin' value='Cousin'>Cousin</option>
+                    <option name='Other' value='Other'>Other</option>
+                  </select>
+                </div>
+                <div class='field phone hide'>
+                  <label class='label' for='phone_3'>Phone Number</label>     
+                  <input name='reference[][phone]' id='phone_3' class='input-text phone-input' type='text' data-inputmask=''mask': '0399-9999999'' placeholder='0300-0000000' disabled/>  
+                </div>
+              </fieldset>
+            </div>
+            <div class='col-md-4 col-sm-4 col-xs-4 last-col hide'>
+              <fieldset class='fieldset'>
+                <div class='field years_known hide'>
+                  <label class='label' for='years_known_3'>Years Known</label>     
+                  <input name='reference[][years_known]' id='years_known_3' class='input-text' type='text' disabled/>     
+                </div>
+                <div class='field reference_email'>
+                  <label class='label' for='reference_email_3'>Email</label>    
+                  <input name='reference[][email]' id='reference_email_3' class='input-text' type='email' disabled/>     
+                </div>
+              </fieldset>
+            </div>
+          </div>
+        </div>
+        <div class='row upload_cv'>
+          <div class='col-sm-4'>
+            <fieldset class='fieldset'>
+              <div class='field'>
+                <label class='label' for='upload_cv'>Upload your CV <em>*</em></label>
+                <input name='upload_cv' id='upload_cv' class='input-text' type='file' required />
+              </div>
+            </fieldset>
+          </div>
+        </div>
+        <input type='submit' class='btn left' value='submit'>
+      </div>
+    </div>
+  </div>
+</form>
+<div class='jumbotron text-center success-msg' style='display: none;'>
+  <h1 class='display-3'>Thank You!</h1>
+  <p class='lead'><strong>Data Has Been Successfully Submitted.</strong> We will get back to you shortly.</p>
+  <hr>
+  <p class='lead'>
+    <a class='btn btn-primary' href='{{ shop.url }}' role='button'>Continue to homepage</a>
+  </p>
+</div>
+<script src='https://unpkg.com/axios/dist/axios.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery.serializeJSON/2.9.0/jquery.serializejson.js'></script>
+<script type='text/javascript'>
+let API_URL='https://easyjob-posting.epinovus.net'
+function getHeaders(){
+        let temp={}
+        $.ajax({
+          url: API_URL+'/get_token',
+          type: 'POST',
+          data:{'domain':window.location.hostname},
+          dataType: 'json',
+          async: false,
+          success: function(result) {
+            temp={
+                'Content-Type': 'application/json',
+                'Authorization':`Token ${result.token}`
+              }
+          }})
+      		return temp;
+		}
+  $(document).ready(function(){
+//     $('.city-input').focusin(function(){
+      if(!$('.city-input').hasClass('show')){
+        $.ajax({
+          url: API_URL+'/cities',
+          type: 'GET',
+          dataType: 'json',
+            headers: getHeaders(),
+            success: function(result) {
+            $('.city-input').addClass('show');
+           // $('.city-input').prop( 'required', true );
+            for (var i = 0;i<result.length;i++){
+              //$('.city-input').append(`<option name=${result[i].name} value=${result[i].name} >${result[i].name}</option>`);
+            }
+          }
+        });
+      }
+    //     });
+    $.ajax({
+      url: API_URL+'/institutes',
+      type: 'GET',
+      dataType: 'json',
+      headers: getHeaders(),
+      success: function(result) {
+        for (var i = 0;i<result.length;i++){
+          $('.institution select').append(`<option name=${result[i].name} value=${result[i].name}>${result[i].name}</option>`);
+        }
+          $('.institution select').append(`<option name='Other' value='Other'>Other</option>`);
+      }
+    });
+    $('#institution,#institution1,#institution2,#institution3').change(function(){
+      if($(this).val()=='Other'){
+        var elInput = $(this);
+        $(elInput).hide();
+        var inputOther = $(this).next();
+        $(inputOther).removeClass('hide');
+        $(inputOther).next().removeClass('hide');
+        $(inputOther).removeAttr('disabled');
+        $(elInput).prop('disabled','true');
+        $(inputOther).focus();
+      }
+    });
+    $('.institution .fa-close').click(function(){
+      var elClose =$(this);
+      $(elClose).addClass('hide');
+      var select = $(elClose).closest('.institution').find('select');
+      $(select).removeAttr('disabled');
+      $(select).show();
+       var input = $(elClose).closest('.institution').find('input')
+       $(input).prop('disabled','true');
+      $(input).addClass('hide');
+      $(select).val('Select');
+    })
+  });
+  var url_string = window.location.href,
+      url = new URL(url_string),
+      id = url.searchParams.get('id');
+  $.ajax({
+    url: API_URL+'/jobDetail?id='+id,
+    type: 'GET',
+    dataType: 'json',
+    headers: getHeaders(),
+    success: function(result){ 
+      $('#job_title').val(result['title']);
+      $('#job_id').val(result['id']);
+      var applicant = result['applicant_fields'],
+          certificate = result['certificate_fields'],
+          education = result['education_fields'],
+          reference = result['reference_fields'],
+          experience = result['professional_fields'];
+      window.showResume = result.applicant_fields.resume;
+      if (applicant['first_name'] == true){
+        $('#first_name').removeClass('hide');
+        $('#first_name input').prop('required',true);
+        $('#first_name').closest('.hide').removeClass('hide');
+      }
+      if (applicant['middle_name'] == true){
+        $('#middle_name').removeClass('hide');
+//         $('#middle_name input').prop('required',true);
+        $('#middle_name').closest('.hide').removeClass('hide');
+      }
+      if (applicant['last_name'] == true){
+        $('#last_name').removeClass('hide');
+        $('#last_name input').prop('required',true);
+        $('#last_name').closest('.hide').removeClass('hide');
+      }
+      if (applicant['date_of_birth'] == true){
+        $('#date_of_birth').removeClass('hide');
+        $('#date_of_birth input').prop('required',true);
+        $('#date_of_birth').closest('.hide').removeClass('hide');
+      }
+      if (applicant['mobile'] == true){
+        $('#mobile').removeClass('hide');
+        $('#mobile input').prop('required',true);
+        $('#mobile').closest('.hide').removeClass('hide');
+      }
+      if (applicant['marital_status'] == true){
+        $('#marital_status').removeClass('hide');
+//         $('#marital_status select').prop('required',true);
+        $('#marital_status').closest('.hide').removeClass('hide');
+      }
+      if (applicant['religion'] == true){
+        $('#religion').removeClass('hide');
+        $('#religion select').prop('required',true);
+        $('#religion').closest('.hide').removeClass('hide');
+      }
+      if (applicant['title'] == true){
+        $('#title').removeClass('hide');
+//         $('#title select').prop('required',true);
+        $('#title').closest('.hide').removeClass('hide');
+      }
+      if (applicant['gender'] == true){
+        $('#gender').removeClass('hide');
+        $('#gender select').prop('required',true);
+        $('#gender').closest('.hide').removeClass('hide');
+      }
+      if (applicant['email'] == true){
+        $('#email').removeClass('hide');
+        $('#email input').prop('required',true);
+        $('#email').closest('.hide').removeClass('hide');
+      }
+      if (applicant['address_present'] == true){
+        $('#address_present').removeClass('hide');
+        $('#address_present input').prop('required',true);
+        $('#address_present').closest('.hide').removeClass('hide');
+      }
+      if (applicant['country'] == true){
+        $('#country').removeClass('hide');
+//         $('#country input').prop('required',true);
+        $('#country').closest('.hide').removeClass('hide');
+      }
+      if (applicant['city'] == true){
+        $('#city').removeClass('hide');
+        $('#city select').prop('required',true);
+        $('#city').closest('.hide').removeClass('hide');
+      }
+      if (applicant['zip_code'] == true){
+        $('#zip_code').removeClass('hide');
+//         $('#zip_code input').prop('required',true);
+        $('#zip_code').closest('.hide').removeClass('hide');
+      }
+      if (applicant['cnic'] == true){
+        $('#cnic').removeClass('hide');
+        $('#cnic input').prop('required',true);
+        $('#cnic').closest('.hide').removeClass('hide');
+      }
+      if (applicant['language'] == true){
+        $('#language').removeClass('hide');
+//         $('#language select').prop('required',true);
+        $('#language').closest('.hide').removeClass('hide');
+      }
+      if (applicant['age'] == true){
+        $('#age').removeClass('hide');
+        $('#age input').prop('required',true);
+        $('#age').closest('.hide').removeClass('hide');
+      }
+      if (applicant['cnic_issue_date'] == true){
+        $('#cnic_issue_date').removeClass('hide');
+        $('#cnic_issue_date input').prop('required',true);
+        $('#cnic_issue_date').closest('.hide').removeClass('hide');
+      }
+      if (applicant['cnic_expiry_date'] == true){
+        $('#cnic_expiry_date').removeClass('hide');
+        $('#cnic_expiry_date input').prop('required',true);
+        $('#cnic_expiry_date').closest('.hide').removeClass('hide');
+      }
+      if (applicant.resume) {
+        $('.upload_cv').removeClass('hide');
+        $('#upload_cv').prop('disabled', false);
+      }
+      if (education != null && allFalse(education)){
+        $('.education').removeClass('hide')
+        if(education['degree'] == true){
+          $('.degree').removeClass('hide');
+          $('.degree select').prop('required',false);
+          $('.degree').closest('.hide').removeClass('hide');           
+        }
+        if(education['institution'] == true){
+          $('.institution').removeClass('hide');
+          $('.institution select').prop('required',false);
+          $('.institution').closest('.hide').removeClass('hide');   
+        }
+        if(education['start'] == true){
+          $('.education_start_date').removeClass('hide');
+          $('.education_start_date input').prop('required',true);
+          $('.education_start_date').closest('.hide').removeClass('hide');
+        }
+        if(education['grade'] == true){
+          $('.grade').removeClass('hide');
+//           $('.grade input').prop('required',true);
+          $('.grade').closest('.hide').removeClass('hide');
+        }
+        if(education['end'] == true){
+          $('.education_end_date').removeClass('hide');
+          $('.education_end_date input').prop('required',true);
+          $('.education_end_date').closest('.hide').removeClass('hide');
+        }
+      }
+      if (experience != null && allFalse(experience)){
+        $('.experience').removeClass('hide')
+        if(experience['employer_name'] == true){
+          $('.employer_name').removeClass('hide');
+//           $('.employer_name input').prop('required',true);
+          $('.employer_name').closest('.hide').removeClass('hide');
+        }
+        if(experience['position'] == true){
+          $('.position').removeClass('hide');
+//           $('.position input').prop('required',true);
+          $('.position').closest('.hide').removeClass('hide');
+        }
+        if(experience['period'] == true){
+          $('.period').removeClass('hide');
+//           $('.period select').prop('required',true);
+          $('.period').closest('.hide').removeClass('hide');
+        }
+        if(experience['start'] == true){
+          $('.experience_start_date').removeClass('hide');
+//           $('.experience_start_date input').prop('required',true);
+          $('.experience_start_date').closest('.hide').removeClass('hide');
+        }        
+        if(experience['end'] == true){
+          $('.experience_end_date').removeClass('hide');
+//           $('.experience_end_date input').prop('required',true);
+          $('.experience_end_date').closest('.hide').removeClass('hide');
+        }
+      }
+      if (certificate != null && allFalse(certificate)){
+        $('.certificate').removeClass('hide')
+        if(certificate['name'] == true){
+          $('.certificate_name').removeClass('hide');
+//           $('.certificate_name input').prop('required',true);
+          $('.certificate_name').closest('.hide').removeClass('hide');
+        }
+        if(certificate['start'] == true){
+          $('.certificate_start_date').removeClass('hide');
+//           $('.certificate_start_date input').prop('required',true);
+          $('.certificate_start_date').closest('.hide').removeClass('hide');
+        }
+        if(certificate['end'] == true){
+          $('.certificate_end_date').removeClass('hide');
+//           $('.certificate_end_date input').prop('required',true);
+          $('.certificate_end_date').closest('.hide').removeClass('hide');
+        }
+      }
+      if (reference != null && allFalse(reference)){
+        $('.reference').removeClass('hide')
+        if(reference['name'] == true){
+          $('.reference_name').removeClass('hide');
+//           $('.reference_name input').prop('required',true);
+          $('.reference_name').closest('.hide').removeClass('hide');
+        }
+        if(reference['company'] == true){
+          $('.company').removeClass('hide')
+//           $('.company input').prop('required',true)
+          $('.company').closest('.hide').removeClass('hide');
+        }
+        if(reference['relationship_type'] == true){
+          $('.relationship_type').removeClass('hide')
+//           $('.relationship_type select').prop('required',true)
+          $('.relationship_type').closest('.hide').removeClass('hide');
+        }
+        if(reference['phone'] == true){
+          $('.phone').removeClass('hide')
+//           $('.phone input').prop('required',true)
+          $('.phone').closest('.hide').removeClass('hide');
+        }
+        if(reference['years_known'] == true){
+          $('.years_known').removeClass('hide')
+//           $('.years_known input').prop('required',true)
+          $('.years_known').closest('.hide').removeClass('hide');
+        }
+        if(reference['email'] == true){
+          $('.reference_email').removeClass('hide')
+//           $('.reference_email input').prop('required',true)
+          $('.reference_email').closest('.hide').removeClass('hide');
+        }
+      }
+    }
+  });
+  $(function() {
+    var form = $('#ajax-form');
+    $(form).submit(function(event) {
+      event.preventDefault();
+      var emptyStringsAndZerosToNulls = function(val, inputName) {
+        if (val === '') return null;
+        return val;
+      }
+      var obj = $('#ajax-form').serializeJSON({parseWithFunction: emptyStringsAndZerosToNulls});
+      var data = {
+        data: JSON.stringify(obj)
+      }
+      var formData = new FormData();
+      formData.append('data', JSON.stringify(obj))
+      formData.append('domain',window.location.hostname);
+        var cvinput = document.querySelector('#upload_cv');
+        let fileName=$('#upload_cv').val().toLowerCase();
+          if(fileName.includes('.docx') || fileName.includes('.pdf') || fileName.includes('.doc') ) {
+            let file=cvinput.files[0]
+           formData.append('resume', file);
+          }
+          else{
+            alert('Use PDF or Docx file for attachment')
+            return false;
+          }
+      $('.loading-modal').show();
+      axios({
+        method: 'post',
+        url: API_URL+'/applicant',
+        data: formData,
+         headers: getHeaders(),
+      }).then(function(response) {
+        $('.loading-modal').hide();
+        $('html, body').animate({ scrollTop: 200 }, 'slow');
+        $('#ajax-form').hide();
+        $('.success-msg').show();
+      }).catch(function(error) {
+        $('.loading-modal').hide();
+        alert(error);
+      });
+      // $.ajax({
+      //   // url: 'https://easyjobposting.alchemative.net/applicant',
+      //   url: 'https://a5e93ee4.ngrok.io/applicant',
+      //   type: 'POST',
+      //   contentType: 'application/json',
+      //   processData: false,
+      //   data: data,
+      // beforeSend: function() {
+      //   $('.loading-modal').show();
+      // },
+      //   success: function(result) {
+      //     $('html, body').animate({ scrollTop: 200 }, 'slow');
+      //     $('#ajax-form').hide();
+      //     $('.loading-modal').hide();
+      //     $('.success-msg').show();
+      //   },
+      //   error:function(e){
+      //    alert(e.responseText)
+      // }
+      // });
+    });
+  });
+  function allFalse(saver){ 
+    for (var i in saver) {
+      if (saver[i] === true) {
+        return true;
+      }
+    }
+    return false
+  }
+  $(document).ready(function(){
+    $('.add-more,.add-more-info,.add-more-cert,.add-more-ref').click(function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      $(this).closest('.custom').next().find('select,input').prop('disabled',false);
+    })
+    $('.add-minus,.add-minus-info,.add-minus-cert,.add-minus-ref').click(function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      $(this).closest('.custom').next().find('select,input').prop('disabled',true)
+    })
+    $('.add-more-1,.add-more-2,.add-more-info-1,.add-more-info-2,.add-more-cert-1,.add-more-cert-2,.add-more-ref-1,.add-more-ref-2').click(function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      $(this).closest('.custom').next().find('select,input').prop('disabled',false);
+    })
+    $('.add-minus-1,.add-minus-2,.add-minus-info-1,.add-minus-info-2,.add-minus-cert-1,.add-minus-cert-2,.add-minus-ref-1,.add-minus-ref-2').click(function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      $(this).closest('.custom').next().find('select,input').prop('disabled',true)
+    })
+    $('.cnic-input,.phone-input,.date').inputmask();
+  })
+</script>
