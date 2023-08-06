@@ -1,0 +1,527 @@
+{% section 'easyjob-career-form' %}
+  <style>
+.form-page-heading{
+box-sizing: border-box;
+max-width: 1170px;
+padding-left: 10px;
+padding-right: 10px;
+margin: 0 auto;
+}
+.form-page-heading h1{
+font-weight: 600;
+color: #000;
+text-align: center;
+font-size: 42px !important;
+margin-bottom: 28px;
+}
+.find-job-heading{
+box-sizing: border-box;
+background-color:#000;
+padding: 20px 10px;
+text-align: left;
+border:1px solid #000;
+}
+.find-job-heading h2{
+color:#fff;
+margin:0px;
+font-size: 20px;
+line-height: 24px;
+}
+.personal-form-info, .acadamic-form-info, .certification-form-info, .reference-form-info, .cv-form-info{
+background: #fff;
+padding: 20px 10px;
+border:2px solid #000;
+text-align: left;
+margin-bottom: 20px;
+position: relative;
+}
+.personal-form-info h2, .acadamic-form-info h2, .certification-form-info h2, .reference-form-info h2, .cv-form-info h2,
+.acadamic-form-info-more h2, .personal-form-info-more h2, .certification-form-info-more h2, .reference-form-info-more h2 ,
+.acadamic-form-info-more-2 h2, .acadamic-form-info-more-3 h2, .personal-form-info-more-2 h2, .personal-form-info-more-3 h2,
+.certification-form-info-more-2 h2,.certification-form-info-more-3 h2,.reference-form-info-more-2 h2, .reference-form-info-more-3 h2{
+margin:0px;
+font-size: 20px;
+line-height: 24px;
+color:#000;
+}
+.acadamic-form-info-more,.acadamic-form-info-more-2,.acadamic-form-info-more-3,.personal-form-info-more,.personal-form-info-more-2,
+.personal-form-info-more-3,.certification-form-info-more,.certification-form-info-more-2,.certification-form-info-more-3,
+.reference-form-info-more,.reference-form-info-more-2,.reference-form-info-more-3{
+display: none;
+background: #fff;
+padding: 20px 10px;
+border:2px solid #000;
+text-align: left;
+margin-bottom: 20px;
+position: relative;
+}
+div.acadamic-form-info-more:nth-child(even){
+border:0px !important;
+padding-left: 0px;
+padding-right: 0px;
+}
+div.acadamic-form-info-more-2:nth-child(even){
+border:0px !important;
+padding-left: 0px;
+padding-right: 0px;
+}
+div.acadamic-form-info-more-3:nth-child(even){
+border:0px !important;
+padding-left: 0px;
+padding-right: 0px;
+}
+div.personal-form-info-more:nth-child(even){
+border:0px !important;
+padding-left: 0px;
+padding-right: 0px;
+}
+div.personal-form-info-more-2:nth-child(even){
+border:0px !important;
+padding-left: 0px;
+padding-right: 0px;
+}
+div.personal-form-info-more-3:nth-child(even){
+border:0px !important;
+padding-left: 0px;
+padding-right: 0px;
+}
+div.certification-form-info-more:nth-child(even){
+border:0px !important;
+padding-left: 0px;
+padding-right: 0px;
+}
+div.certification-form-info-more-2:nth-child(even){
+border:0px !important;
+padding-left: 0px;
+padding-right: 0px;
+}
+div.certification-form-info-more-3:nth-child(even){
+border:0px !important;
+padding-left: 0px;
+padding-right: 0px;
+}
+div.reference-form-info-more:nth-child(even){
+border:0px !important;
+padding-left: 0px;
+padding-right: 0px;
+}
+div.reference-form-info-more-2:nth-child(even){
+border:0px !important;
+padding-left: 0px;
+padding-right: 0px;
+}
+div.reference-form-info-more-3:nth-child(even){
+border:0px !important;
+padding-left: 0px;
+padding-right: 0px;
+}
+.custom-row{
+  box-sizing: border-box;
+  width:100%;
+  margin-left: -15px;
+  margin-right: -15px;
+}
+.custom-col-3{
+  width:25%;
+position: relative;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+#job-title, #title, #date-birth, #gender, #marital-status, #religion, #nav_lang, #citizenship, #last-name, #issue-date,#end-date, #address-1 ,#address-2,#institute, #start-date, #end-date1, #gpa, #out-of, #employer, #period, #postion,#start-date1, #end-date2, #period1, #start-date2, #end-date3, #reference-name, #company-name, #relationship, #elephone1, #years-known, #email1, #degree1, #start-date-1-1, #gpa-1, #end-date1-1, #out-of-1, #degree2, #start-date-1-2, #gpa-2, #end-date1-2, #out-of-2, #degree3, #start-date-1-3, #gpa-3, #end-date1-3,#employer-1, #period-1, #position-1, #start-date-perosnal, #end-date-personal, #employer-2, #period-2, #position-2, #start-date-perosnal-2, #end-date-personal-2, #employer-3, #period-3, #position-3, #start-date-perosnal-3, #end-date-personal-3, #period-cert, #start-date-cert, #end-date-cert, #period-cert-2, #period-cert-3, #start-date-cert-2, #end-date-cert-2, #reference-name-1, #company-name-1, #relationship-1, #telephone-ref, #years-known-ref, #email-ref, #reference-name-2, #company-name-2, #relationship-2, #telephone-ref-2, #years-known-ref-2, #email-ref-3,#reference-name-3, 
+  #company-name-3, #relationship-3, #telephone-ref-3, #years-known-ref-3, #email-ref-3{
+  border-radius: 0;
+  width:100%;
+  height:38px;
+}
+.input-text{
+padding:10px;
+border:1px solid #cccccc;
+}
+.upload-photo{
+padding:0px;
+border:0;
+  }
+.upload-cv{
+  width:100%;
+}
+#date-birth{
+padding:10px;
+}
+.file-input{
+  border:2px solid #000;
+  padding:145px 45px;
+}
+#file-input{
+  max-width: 170px;
+}
+.cms-careers .first-col{
+padding-left:0px;
+}
+.cms-careers .last-col{
+padding-right:0px;
+}
+.cms-careers .fieldset{
+  margin-bottom: 30px;
+}
+.cms-careers #maincontent{
+  padding-bottom: 0px;
+}
+.cms-careers .row{
+margin-left: 0px;
+margin-right: 0px;
+}
+.add-more,.add-more-1,.add-more-2,.add-more-info,.add-more-info-1,.add-more-info-2, .add-more-cert, .add-more-cert-1,
+.add-more-cert-2, .add-more-ref, .add-more-ref-1, .add-more-ref-2 {
+position: absolute;
+right: 15px;
+top: 30%;
+cursor: pointer;
+}
+.add-more a, .add-more-1 a, .add-more-2 a, .add-more-info a, .add-more-info-1 a,.add-more-info-2 a, .add-more-cert a, 
+.add-more-cert-1 a, .add-more-cert-2 a, .add-more-ref a,.add-more-ref-1 a, .add-more-ref-2 a{
+font-size: 16px;
+text-transform: uppercase;
+text-decoration: none;
+color:#000 !important;
+}
+.add-more i, .add-more-1 i,.add-more-2 i, .add-more-info i, .add-more-info-1 i,.add-more-info-2 i, .add-more-cert i, 
+.add-more-cert-1 i, .add-more-cert-2 i, .add-more-ref i,.add-more-ref-1 i, .add-more-ref-2 i{
+width: 20px;
+height: 20px;
+border-radius: 100%;
+background: #fff;
+padding: 2px;
+text-align: center;
+line-height: 16px;
+border: 1px solid #666;
+display: inline-block;
+vertical-align: middle;
+margin-left: 10px;
+font-size: 13px;
+margin-bottom: 2px;
+}
+.add-minus,.add-minus-1,.add-minus-2 , .add-minus-info, .add-minus-info-1, .add-minus-info-2, .add-minus-cert, .add-minus-cert-1, 
+.add-minus-cert-2, .add-minus-ref, .add-minus-ref-1, .add-minus-ref-2{
+display: none;
+position: absolute;
+right: 15px;
+top: 30%;
+cursor: pointer;
+}
+.add-minus a, .add-minus-1 a,.add-minus-2 a, .add-minus-info a, .add-minus-info-1 a, .add-minus-info-2 a, .add-minus-cert a , 
+.add-minus-cert-1 a, .add-minus-cert-2 a, .add-minus-ref a , .add-minus-ref-1 a, .add-minus-ref-2 a{
+font-size: 16px;
+text-transform: uppercase;
+text-decoration: none;
+color:#000 !important;
+}
+.add-minus i, .add-minus-1 i,.add-minus-2 i, .add-minus-info i, .add-minus-info-1 i, .add-minus-info-2 i, .add-minus-cert i , 
+.add-minus-cert-1 i, .add-minus-cert-2 i, .add-minus-ref i , .add-minus-ref-1 i, .add-minus-ref-2 i{
+width: 20px;
+height: 20px;
+border-radius: 100%;
+background: #fff;
+padding: 2px;
+text-align: center;
+line-height: 16px;
+border: 1px solid #666;
+display: inline-block;
+vertical-align: middle;
+margin-left: 10px;
+font-size: 13px;
+margin-bottom: 2px;
+}
+@media screen and (min-width:768px ){
+.custom-col-3{ 
+  float:left;
+}
+}
+@media screen and (max-width: 767px){
+  .custom-row{
+    margin-left:0px;
+    margin-right: 0px;
+  }
+  #career-form .page-header h2{font-weight: 600;
+    color: #000;
+    text-align: center;
+    font-size: 42px !Important;
+    margin-bottom: 28px;}
+}
+    @media screen and (max-width: 481px){
+    #contactFormWrapper label {
+    font-size: 12px;
+}
+      #contactFormWrapper h2{font-size:14px;}
+      .add-more a, .add-more-1 a, .add-more-2 a, .add-more-info a, .add-more-info-1 a, .add-more-info-2 a, .add-more-cert a, .add-more-cert-1 a, .add-more-cert-2 a, .add-more-ref a, .add-more-ref-1 a, .add-more-ref-2 a {
+    font-size: 11px;
+      }
+      .add-more i, .add-more-1 i, .add-more-2 i, .add-more-info i, .add-more-info-1 i, .add-more-info-2 i, .add-more-cert i, .add-more-cert-1 i, .add-more-cert-2 i, .add-more-ref i, .add-more-ref-1 i, .add-more-ref-2 i {
+    width: 15px;
+    height: 15px;
+    padding: 1px;
+    line-height: 13px;
+      }
+      .add-minus a, .add-minus-1 a, .add-minus-2 a, .add-minus-info a, .add-minus-info-1 a, .add-minus-info-2 a, .add-minus-cert a, .add-minus-cert-1 a, .add-minus-cert-2 a, .add-minus-ref a, .add-minus-ref-1 a, .add-minus-ref-2 a {
+    font-size: 11px;
+      }
+      .add-minus i, .add-minus-1 i, .add-minus-2 i, .add-minus-info i, .add-minus-info-1 i, .add-minus-info-2 i, .add-minus-cert i, .add-minus-cert-1 i, .add-minus-cert-2 i, .add-minus-ref i, .add-minus-ref-1 i, .add-minus-ref-2 i {
+    width: 15px;
+    height: 15px;
+    padding: 1px;
+    line-height: 12px;
+      }
+    }
+</style>
+  <script>
+    jQuery(document).ready(function(){
+           jQuery('.add-more').click(function(){
+            jQuery('.add-more').hide();
+            jQuery('.add-minus').show();
+            jQuery('.acadamic-form-info-more').slideDown();  
+       });
+          jQuery('.add-minus').click(function(){
+            jQuery('.add-minus').hide();
+            jQuery('.add-more').show();
+            jQuery('.acadamic-form-info-more,.acadamic-form-info-more-2,.acadamic-form-info-more-3').slideUp(); 
+    });
+           jQuery('.add-more-1').click(function(){
+            jQuery('.add-more-1').hide();
+            jQuery('.add-minus-1').show();
+            jQuery('.acadamic-form-info-more-2').slideDown(); 
+       });
+          jQuery('.add-minus-1').click(function(){
+            jQuery('.add-minus-1').hide();
+            jQuery('.add-more-1').show();
+            jQuery('.acadamic-form-info-more-2,.acadamic-form-info-more-3').slideUp(); 
+       });
+           jQuery('.add-more-2').click(function(){
+            jQuery('.add-more-2').hide();
+            jQuery('.add-minus-2').show();
+            jQuery('.acadamic-form-info-more-3').slideDown(); 
+       });
+          jQuery('.add-minus-2').click(function(){
+            jQuery('.add-minus-2').hide();
+            jQuery('.add-more-2').show();
+            jQuery('.acadamic-form-info-more-3').slideUp(); 
+       });
+           jQuery('.add-more-info').click(function(){
+            jQuery('.add-more-info').hide();
+            jQuery('.add-minus-info').show();
+            jQuery('.personal-form-info-more').slideDown(); 
+       });
+          jQuery('.add-minus-info').click(function(){
+            jQuery('.add-minus-info').hide();
+            jQuery('.add-more-info').show();
+            jQuery('.personal-form-info-more,.personal-form-info-more-2,.personal-form-info-more-3').slideUp(); 
+       });
+           jQuery('.add-more-info-1').click(function(){
+            jQuery('.add-more-info-1').hide();
+            jQuery('.add-minus-info-1').show();
+            jQuery('.personal-form-info-more-2').slideDown(); 
+       });
+          jQuery('.add-minus-info-1').click(function(){
+            jQuery('.add-minus-info-1').hide();
+            jQuery('.add-more-info-1').show();
+            jQuery('.personal-form-info-more-2,.personal-form-info-more-3').slideUp(); 
+       });
+           jQuery('.add-more-info-2').click(function(){
+            jQuery('.add-more-info-2').hide();
+            jQuery('.add-minus-info-2').show();
+            jQuery('.personal-form-info-more-3').slideDown(); 
+       });
+          jQuery('.add-minus-info-2').click(function(){
+            jQuery('.add-minus-info-2').hide();
+            jQuery('.add-more-info-2').show();
+            jQuery('.personal-form-info-more-3').slideUp(); 
+       });
+           jQuery('.add-more-cert').click(function(){
+            jQuery('.add-more-cert').hide();
+            jQuery('.add-minus-cert').show();
+            jQuery('.certification-form-info-more').slideDown(); 
+       });
+          jQuery('.add-minus-cert').click(function(){
+            jQuery('.add-minus-cert').hide();
+            jQuery('.add-more-cert').show();
+            jQuery('.certification-form-info-more,.certification-form-info-more-2,.certification-form-info-more-3').slideUp(); 
+       });
+           jQuery('.add-more-cert-1').click(function(){
+            jQuery('.add-more-cert-1').hide();
+            jQuery('.add-minus-cert-1').show();
+            jQuery('.certification-form-info-more-2').slideDown(); 
+       });
+          jQuery('.add-minus-cert-1').click(function(){
+            jQuery('.add-minus-cert-1').hide();
+            jQuery('.add-more-cert-1').show();
+            jQuery('.certification-form-info-more-2,.certification-form-info-more-3').slideUp(); 
+       });
+           jQuery('.add-more-cert-2').click(function(){
+            jQuery('.add-more-cert-2').hide();
+            jQuery('.add-minus-cert-2').show();
+            jQuery('.certification-form-info-more-3').slideDown(); 
+       });
+          jQuery('.add-minus-cert-2').click(function(){
+            jQuery('.add-minus-cert-2').hide();
+            jQuery('.add-more-cert-2').show();
+            jQuery('.certification-form-info-more-3').slideUp(); 
+       });
+           jQuery('.add-more-ref').click(function(){
+            jQuery('.add-more-ref').hide();
+            jQuery('.add-minus-ref').show();
+            jQuery('.reference-form-info-more').slideDown(); 
+       });
+          jQuery('.add-minus-ref').click(function(){
+            jQuery('.add-minus-ref').hide();
+            jQuery('.add-more-ref').show();
+            jQuery('.reference-form-info-more,.rerence-form-info-more-2,.rerence-form-info-more-3').slideUp(); 
+       });
+           jQuery('.add-more-ref-1').click(function(){
+            jQuery('.add-more-ref-1').hide();
+            jQuery('.add-minus-ref-1').show();
+            jQuery('.reference-form-info-more-2').slideDown(); 
+       });
+          jQuery('.add-minus-ref-1').click(function(){
+            jQuery('.add-minus-ref-1').hide();
+            jQuery('.add-more-ref-1').show();
+            jQuery('.reference-form-info-more-2,.rerence-form-info-more-3').slideUp(); 
+       });
+           jQuery('.add-more-ref-2').click(function(){
+            jQuery('.add-more-ref-2').hide();
+            jQuery('.add-minus-ref-2').show();
+            jQuery('.reference-form-info-more-3').slideDown(); 
+       });
+          jQuery('.add-minus-ref-2').click(function(){
+            jQuery('.add-minus-ref-2').hide();
+            jQuery('.add-more-ref-2').show();
+            jQuery('.reference-form-info-more-3').slideUp(); 
+       });
+             jQuery('#nav_lang_div').hide(); 
+               jQuery('#nav_lang').change(function(){
+                 if(jQuery('#nav_lang').val() == 'Other') {
+                   jQuery('#nav_lang_div').show(); 
+               } else {
+                 jQuery('#nav_lang_div').hide(); 
+        } 
+    });
+          jQuery('#citizenship_div').hide(); 
+               jQuery('#citizenship').change(function(){
+                 if(jQuery('#citizenship').val() == 'Other') {
+                   jQuery('#citizenship_div').show(); 
+               } else {
+                 jQuery('#citizenship_div').hide(); 
+        } 
+    });
+          jQuery('#institute_div').hide(); 
+               jQuery('#institute').change(function(){
+                 if(jQuery('#institute').val() == 'Other') {
+                   jQuery('#institute_div').show(); 
+               } else {
+                 jQuery('#institute_div').hide(); 
+        } 
+    });
+          jQuery('#institute_div_1').hide(); 
+               jQuery('#institute1').change(function(){
+                 if(jQuery('#institute1').val() == 'Other') {
+                   jQuery('#institute_div_1').show(); 
+               } else {
+                 jQuery('#institute_div_1').hide(); 
+        } 
+    });
+          jQuery('#institute_div_2').hide(); 
+               jQuery('#institute2').change(function(){
+                 if(jQuery('#institute2').val() == 'Other') {
+                   jQuery('#institute_div_2').show(); 
+               } else {
+                 jQuery('#institute_div_2').hide(); 
+        } 
+    });
+          jQuery('#institute_div_3').hide(); 
+               jQuery('#institute3').change(function(){
+                 if(jQuery('#institute3').val() == 'Other') {
+                   jQuery('#institute_div_3').show(); 
+               } else {
+                 jQuery('#institute_div_3').hide(); 
+        } 
+    });
+      jQuery('#degree_div').hide(); 
+               jQuery('#degree').change(function(){
+                 if(jQuery('#degree').val() == 'Other') {
+                   jQuery('#degree_div').show(); 
+               } else {
+                 jQuery('#degree_div').hide(); 
+        } 
+    });
+      jQuery('#degree_div_1').hide(); 
+               jQuery('#degree1').change(function(){
+                 if(jQuery('#degree1').val() == 'Other') {
+                   jQuery('#degree_div_1').show(); 
+               } else {
+                 jQuery('#degree_div_1').hide(); 
+        } 
+    });
+          jQuery('#degree_div_2').hide(); 
+               jQuery('#degree2').change(function(){
+                 if(jQuery('#degree2').val() == 'Other') {
+                   jQuery('#degree_div_2').show(); 
+               } else {
+                 jQuery('#degree_div_2').hide(); 
+        } 
+    });
+          jQuery('#degree_div_3').hide(); 
+               jQuery('#degree3').change(function(){
+                 if(jQuery('#degree3').val() == 'Other') {
+                   jQuery('#degree_div_3').show(); 
+               } else {
+                 jQuery('#degree_div_3').hide(); 
+        } 
+    });
+          jQuery('#relationship_div').hide(); 
+               jQuery('#relationship').change(function(){
+                 if(jQuery('#relationship').val() == 'Other') {
+                   jQuery('#relationship_div').show(); 
+               } else {
+                 jQuery('#relationship_div').hide(); 
+        } 
+               });
+             jQuery('#relationship_div_1').hide(); 
+               jQuery('#relationship-1').change(function(){
+                 if(jQuery('#relationship-1').val() == 'Other') {
+                   jQuery('#relationship_div_1').show(); 
+               } else {
+                 jQuery('#relationship_div_1').hide(); 
+        } 
+    });
+             jQuery('#relationship_div_2').hide(); 
+               jQuery('#relationship-2').change(function(){
+                 if(jQuery('#relationship-2').val() == 'Other') {
+                   jQuery('#relationship_div_2').show(); 
+               } else {
+                 jQuery('#relationship_div_2').hide(); 
+        } 
+    });
+             jQuery('#relationship_div_3').hide(); 
+               jQuery('#relationship-3').change(function(){
+                 if(jQuery('#relationship-3').val() == 'Other') {
+                   jQuery('#relationship_div_3').show(); 
+               } else {
+                 jQuery('#relationship_div_3').hide(); 
+        } 
+    });
+     }); 
+    $('#cnic').keydown(function(){
+  //allow  backspace, tab, ctrl+A, escape, carriage return
+  if (event.keyCode == 8 || event.keyCode == 9 
+                    || event.keyCode == 27 || event.keyCode == 13 
+                    || (event.keyCode == 65 && event.ctrlKey === true) )
+                        return;
+  if((event.keyCode < 48 || event.keyCode > 57))
+   event.preventDefault();
+  var length = $(this).val().length; 
+  if(length == 5 || length == 13)
+   $(this).val($(this).val()+'-');
+ });
+    function alphaOnly(event) {
+  var key = event.keyCode;`enter code here`
+  return ((key >= 65 && key <= 90) || key == 8 || key == 32);
+};
+</script>
