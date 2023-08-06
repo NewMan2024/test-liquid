@@ -1,0 +1,17 @@
+<ul class="cartitems--list" data-cart-item-list>
+  {% for item in cart.items %}
+    {%
+      render 'cart-item',
+      item: item,
+      show_sku: show_sku,
+      item_index: forloop.index,
+    %}
+  {% endfor %}
+</ul>
+
+<script id="docapp-shipping-speedup">
+(() => { if (!document.documentElement.innerHTML.includes('\\/shop' + '\\/js' + '\\/cart-shipping-calculator-pro.min.js') || window.cartShippingCalculatorProAppLoaded) return; let script = document.createElement('script'); script.src = "https://d1an1e2qw504lz.cloudfront.net/shop/js/cart-shipping-calculator-pro.min.js?shop=f0b8c8-2.myshopify.com"; document.getElementById('docapp-shipping-speedup').after(script); })();
+</script>
+<script id="docapp-discount-speedup">
+(() => { if (!document.documentElement.innerHTML.includes('\\/shop' + '\\/js' + '\\/discount-on-cart-pro.min.js') || window.discountOnCartProAppLoaded) return; let script = document.createElement('script'); script.src = "https://d9fvwtvqz2fm1.cloudfront.net/shop/js/discount-on-cart-pro.min.js?shop=f0b8c8-2.myshopify.com"; document.getElementById('docapp-discount-speedup').after(script); })();
+</script>
