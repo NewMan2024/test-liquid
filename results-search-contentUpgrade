@@ -1,0 +1,100 @@
+{% comment %}
+  @param title {String}
+    Title for section
+
+  @param results {Object}
+    List of results
+
+  @param results_type {String}
+    Type of search result to display
+{% endcomment %}
+
+{% capture sanitized_terms %}
+  {%
+    render 'search-sanitizer',
+    search_terms: search.terms
+  %}
+{% endcapture %}
+
+{% assign sanitized_terms = sanitized_terms | strip %}
+
+<div class="productgrid--footer-item">
+  <h2 class="productgrid--footer-title">
+    {{ title | t }}
+  </h2>
+
+  <ul class="productgrid--footer-results-list">
+    {% for item in results %}
+    {% if item.object_type != results_type %}
+      {% continue %}
+    {% endif %}
+    <li>
+      <a href="{{ item.url }}">
+        {{ item.title }}
+      </a>
+    </li>
+  {% endfor %}
+  </ul>
+</div>
+
+
+
+
+
+
+<!-- Existing code 8/26/2023-->
+
+
+{% assign excluded_keywords = "laptop, bottle" | split: ", " %}
+
+{% for product in collections.all.products %}
+  {% assign exclude_product = false %}
+  {% for keyword in excluded_keywords %}
+    {% if product.description contains keyword %}
+      {% assign exclude_product = true %}
+      {% break %}
+    {% endif %}
+  {% endfor %}
+  
+  {% unless exclude_product %}
+    <!-- Existing code to display the product -->
+  {% endunless %}
+{% endfor %}
+
+
+{% assign excluded_keywords = "laptop, bottle" | split: ", " %}
+
+{% for product in search.results %}
+  {% assign exclude_product = false %}
+  {% for keyword in excluded_keywords %}
+    {% if product.description contains keyword %}
+      {% assign exclude_product = true %}
+      {% break %}
+    {% endif %}
+  {% endfor %}
+  
+  {% unless exclude_product %}
+    <!-- Existing code to display the product -->
+  {% endunless %}
+{% endfor %}
+
+
+{% assign highlighted_words = search.terms | split: ' ' %}
+
+{% assign contains = false %}
+{% for word in highlighted_words %}
+  {% if product.description contains word %}
+    {% assign contains = true %}
+  {% endif %} 
+{% endfor %}
+
+{% if contains %}
+  {% assign description = product.description %}
+  {% for word in highlighted_words %}
+    {% assign description = description | replace: word, '<span class="highlight">' | append: word | append: '</span>' %}
+  {% endfor %}
+{% else %}
+  {% assign description = product.description %}
+{% endif %}
+
+<!-- Existing code 8/26/2023-->
